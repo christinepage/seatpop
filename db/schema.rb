@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326025055) do
+ActiveRecord::Schema.define(version: 20150326033752) do
 
   create_table "parties", force: :cascade do |t|
     t.string   "name"
@@ -20,9 +20,14 @@ ActiveRecord::Schema.define(version: 20150326025055) do
     t.datetime "start_time"
     t.datetime "seated_time"
     t.datetime "exit_time"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "restaurant_id"
+    t.integer  "party_status_id"
   end
+
+  add_index "parties", ["party_status_id"], name: "index_parties_on_party_status_id"
+  add_index "parties", ["restaurant_id"], name: "index_parties_on_restaurant_id"
 
   create_table "party_statuses", force: :cascade do |t|
     t.string   "name"

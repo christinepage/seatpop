@@ -76,4 +76,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :test
+  
+  #change this for each development environment
+  #host = 'localhost:3000'  
+  host = 'tranquil-brushlands-2646.herokuapp.com'
+  config.action_mailer.default_url_options = { host: host }
 end

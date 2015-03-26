@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :parties
+
+  resources :restaurants
+
   get 'users/new'
 
   root              'static_pages#home'

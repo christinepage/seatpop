@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  size: 1
+  phone: MyString
+  start_time: 2015-03-25 19:42:22
+  seated_time: 2015-03-25 19:42:22
+  exit_time: 2015-03-25 19:42:22
+
+two:
+  name: MyString
+  size: 1
+  phone: MyString
+  start_time: 2015-03-25 19:42:22
+  seated_time: 2015-03-25 19:42:22
+  exit_time: 2015-03-25 19:42:22

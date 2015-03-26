@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+PartyStatus.create!(name:  "waiting")
+PartyStatus.create!(name:  "seated")
+PartyStatus.create!(name:  "exited")

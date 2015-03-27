@@ -1,0 +1,20 @@
+<% provide(:title, 'All parties') %>
+<h1>All parties</h1>
+
+<%= will_paginate %>
+<table class="table">
+  <tr class="parties">
+  <th>Name</th>
+  <th>Size</th>
+  <th>Number</th>
+  <th>Show</th>
+  <th>Edit</th>
+  <th>Destroy</th>
+  </tr>
+  <%= render @parties %>
+</table>
+
+<%= will_paginate %>
+
+
+<%= link_to 'Add Party', new_party_path %>

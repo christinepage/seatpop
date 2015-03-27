@@ -1,0 +1,21 @@
+<% provide(:title, @party.name) %>
+<h1>Party <%=  @party.name %></h1>
+<div class = "row">
+  <aside class = "col-md-4">
+    <section class = "user_info">
+      <h1>
+        <ul class="list-unstyled">
+        <li>Name: <%= @party.name %></li>
+        <li>Size: <%= @party.size %></li>
+        <li>Phone Number: <%= @party.phone %></li>
+        <li>Start Time: <%= @party.created_at %></li>
+        <li>Seated Time: <%= @party.seated_time %></li>
+        <li>Exit Time: <%= @party.exit_time %></li>
+        <li>Restaurant: <%= @party.restaurant %></li>
+        <li><%= link_to 'Edit', edit_party_path(@party) %></li>
+        <li><%= link_to 'Back', parties_path %></li>
+        </ul>
+      </h1>
+    </section>
+  </aside>
+</div>

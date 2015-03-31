@@ -18,14 +18,17 @@ User.create!(name:  "Example User",
              activated: true,
              activated_at: Time.zone.now)
 
-99.times do |n|
-  name  = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
-  password = "password"
-  User.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password,
-               activated: true,
-               activated_at: Time.zone.now)
+Restaurant.create!(name:  "Delfina")
+Restaurant.create!(name:  "Saha")
+Restaurant.create!(name:  "Tacolicious")
+
+restaurants = Restaurant.order(:created_at).take(6)
+restaurants.each { |restaurant| 
+Faker::Number.positive(3,15).times do
+  restaurant.parties.create!(name: Faker::Name.first_name, size: Faker::Number.positive(1,10), phone: Faker::PhoneNumber.phone_number) 
 end
+}
+  
+  
+
+

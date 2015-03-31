@@ -2,9 +2,10 @@ class CreateParties < ActiveRecord::Migration
   def change
     create_table :parties do |t|
       t.string :name
+      t.references :restaurant, index: true
       t.integer :size
       t.string :phone
-      t.datetime :start_time
+      t.string :notes
       t.datetime :seated_time
       t.datetime :exit_time
 

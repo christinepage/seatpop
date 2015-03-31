@@ -1,17 +1,55 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  size: 1
-  phone: MyString
-  start_time: 2015-03-25 19:42:22
+steve:
+  name: Steve
+  size: 3
+  phone: 650-213-1111
   seated_time: 2015-03-25 19:42:22
   exit_time: 2015-03-25 19:42:22
+  created_at: <%= 10.minutes.ago %>
+  restaurant: delfina
 
-two:
-  name: MyString
-  size: 1
-  phone: MyString
-  start_time: 2015-03-25 19:42:22
+carrie:
+  name: Carrie
+  size: 10
+  phone: 415-222-2222
   seated_time: 2015-03-25 19:42:22
   exit_time: 2015-03-25 19:42:22
+  created_at: <%= 2.hours.ago %>
+  restaurant: saha
+
+tony:
+  name: Tony
+  size: 10
+  phone: 415-222-2222
+  seated_time: 2015-03-25 19:42:22
+  exit_time: 2015-03-25 19:42:22
+  created_at: <%= 1.hours.ago %>
+  restaurant: saha
+  
+emma:
+  name: Emma
+  size: 2
+  phone: 415-232-2332
+  seated_time: 2015-03-25 19:42:22
+  exit_time: 2015-03-25 19:42:22
+  created_at: <%= 1.hours.ago %>
+  restaurant: delfina
+
+<% 5.times do |n| %>
+party_<%= n %>:
+  name: <%= Faker::Name.first_name %>
+  size: <%= Faker::Number.positive(1,10) %>
+  phone: <%= Faker::PhoneNumber.phone_number %>
+  created_at: <%= Faker::Number.positive(1,120).minutes.ago %>
+  restaurant: saha
+<% end %>
+
+<% 5.times do |n| %>
+party_<%= n %>:
+  name: <%= Faker::Name.first_name %>
+  size: <%= Faker::Number.positive(1,10) %>
+  phone: <%= Faker::PhoneNumber.phone_number %>
+  created_at: <%= Faker::Number.positive(1,120).minutes.ago %>
+  restaurant: delfina
+<% end %>

@@ -10,7 +10,7 @@ PartyStatus.create!(name:  "waiting")
 PartyStatus.create!(name:  "seated")
 PartyStatus.create!(name:  "exited")
 
-User.create!(name:  "Example User",
+current_user = User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
              password_confirmation: "foobar",
@@ -18,9 +18,9 @@ User.create!(name:  "Example User",
              activated: true,
              activated_at: Time.zone.now)
 
-Restaurant.create!(name:  "Delfina")
-Restaurant.create!(name:  "Saha")
-Restaurant.create!(name:  "Tacolicious")
+Restaurant.create!(name:  "Delfina").users.append(current_user)
+Restaurant.create!(name:  "Saha").users.append(current_user)
+Restaurant.create!(name:  "Tacolicious").users.append(current_user)
 
 restaurants = Restaurant.order(:created_at).take(6)
 restaurants.each { |restaurant| 

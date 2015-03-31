@@ -3,7 +3,9 @@ require 'test_helper'
 class RestaurantTest < ActiveSupport::TestCase
 
   def setup
-    @restaurant = Restaurant.create(name: "La Nebbia")
+    @user = users(:archer)
+    @restaurant = Restaurant.new(name: "Gino's")
+ #   @restaurant.users.append(@user)
   end
   
   test "associated parties should be destroyed" do

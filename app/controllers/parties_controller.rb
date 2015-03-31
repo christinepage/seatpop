@@ -1,5 +1,7 @@
 class PartiesController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy, :edit, :update]
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :edit, :update]
+  before_action :correct_user,   only: [:index, :show, :new, :create, :destroy, :edit, :update]
+  
   def index
     @parties = Party.paginate(page: params[:page])
   end
@@ -48,5 +50,11 @@ class PartiesController < ApplicationController
 
     def party_params
       params.require(:party).permit(:name, :size, :phone)
+    end
+    
+    def correct_user
+      @party = Party.find_by(id: params[:id])
+      @restaurant = user.restaurants.find_by(id: @party.restaurant_id)
+      redirect_to root_url if @restaurant.nil?
     end
 end

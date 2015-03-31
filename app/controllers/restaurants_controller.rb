@@ -1,5 +1,8 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :correct_user,   only: [:create, :edit, :update, :destroy]
+  before_action :admin_user,     only: :destroy
 
   def new
     @restaurant = Restaurant.new
@@ -63,6 +66,11 @@ class RestaurantsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
       params.require(:restaurant).permit(:name, :description)
+    end
+    
+    def correct_user
+      @restaurant = current_user.restaurants.find_by(id: params[:id])
+      redirect_to root_url if @restaurant.nil?
     end
 
 end

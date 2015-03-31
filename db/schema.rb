@@ -15,14 +15,14 @@ ActiveRecord::Schema.define(version: 20150326235608) do
 
   create_table "parties", force: :cascade do |t|
     t.string   "name"
+    t.integer  "restaurant_id"
     t.integer  "size"
     t.string   "phone"
-    t.datetime "start_time"
+    t.string   "notes"
     t.datetime "seated_time"
     t.datetime "exit_time"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "restaurant_id"
     t.integer  "party_status_id"
   end
 

@@ -1,6 +1,16 @@
 <% if @waitlist_items.any? %>
-  <ol class="parties">
+
+<table class="table">
+  <tr class="parties">
+  <th>Name</th>
+  <th>Size</th>
+  <th>Phone</th>
+  <th>Waiting</th>
+  <th>Restaurant</th>
+  <th>Edit</th>
+  <th>Delete</th>
+  </tr>
     <%= render @waitlist_items %>
-  </ol>
+</table>
   <%= will_paginate @waitlist_items %>
 <% end %>

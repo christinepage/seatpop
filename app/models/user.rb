@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :restaurants
+  has_many :restaurants_users
+  has_many :restaurants, :through => :restaurants_users, :source => :restaurant
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email

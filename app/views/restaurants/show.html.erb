@@ -1,28 +1,25 @@
 <% provide(:title, @restaurant.name) %>
 <% provide(:restaurant_id, params[:id]) %>
 <% if logged_in? %>
-  <div class="row">
-    <aside class="col-md-4">
-      <section class="party_form">
-        <%= render 'shared/party_form' %>
-      </section>
-    </aside>
-  </div>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
         <%= @restaurant.name %>
       </h1>
+      
     </section>
+    <div class="row">
+      <section class="party_form">
+        <%= render 'shared/party_form' %>
+      </section>
+    </div>
   </aside>
   <div class="col-md-8">
     <% if @restaurant.parties.any? %>
       <h3>Waitlist (<%= @restaurant.parties.count %>)</h3>
-      <ol class="parties">
-        <%= render 'shared/waitlist' %>
-      </ol>
-      <%= will_paginate @waitlist_items %>
+      
+      <%= render 'shared/waitlist' %>
     <% end %>
   </div>
 </div>

@@ -1,6 +1,7 @@
 class PartiesController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :edit, :update]
-  before_action :correct_user,   only: [:index, :show, :new, :create, :destroy, :edit, :update]
+  before_action :correct_user,   only: [:show, :destroy, :edit, :update]
+  before_action :correct_restaurant_user,   only: [:create]
   
   def index
     @parties = Party.paginate(page: params[:page])
@@ -8,6 +9,7 @@ class PartiesController < ApplicationController
  
   def new
     @party = Party.new
+    @restaurant = Restaurant.find_by(id: params[:id])
   end
 
   def create
@@ -17,7 +19,7 @@ class PartiesController < ApplicationController
       flash[:success] = "Party created!"
       redirect_to @restaurant
     else
-      flash[:failure] = "Party NOT created!"
+      flash[:danger] = "Party could NOT be created!"
       render @restaurant
     end
   end
@@ -64,7 +66,19 @@ class PartiesController < ApplicationController
     
     def correct_user
       @party = Party.find_by(id: params[:id])
-      @restaurant = user.restaurants.find_by(id: @party.restaurant_id)
-      redirect_to root_url if @restaurant.nil?
+      @restaurant = current_user.restaurants.find_by(id: @party.restaurant_id)
+      if @restaurant.nil? 
+        flash[:danger] = "Sorry, you are not authorized for this action!"
+        redirect_to root_url 
+      end
+    end
+    
+    def correct_restaurant_user
+      @party = Party.find_by(id: params[:id])
+      @restaurant = current_user.restaurants.find_by(id: params[:restaurant_id])
+      if @restaurant.nil? 
+        flash[:danger] = "Sorry, you are not authorized for this action!"
+        redirect_to root_url 
+      end
     end
 end

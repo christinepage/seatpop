@@ -18,6 +18,14 @@ current_user = User.create!(name:  "Example User",
              activated: true,
              activated_at: Time.zone.now)
 
+other_user = User.create!(name:  "Other User",
+             email: "example1@railstutorial.org",
+             password:              "foobar",
+             password_confirmation: "foobar",
+             admin:     false,
+             activated: true,
+             activated_at: Time.zone.now)
+             
 Restaurant.create!(name:  "Delfina").users.append(current_user)
 Restaurant.create!(name:  "Saha").users.append(current_user)
 Restaurant.create!(name:  "Tacolicious").users.append(current_user)

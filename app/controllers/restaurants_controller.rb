@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-
+    @restaurant.users.append(current_user)
     respond_to do |format|
     if @restaurant.save
       format.html { redirect_to restaurants_url, notice: 'Restaurant was successfully created.' }

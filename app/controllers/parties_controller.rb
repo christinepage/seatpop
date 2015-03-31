@@ -1,4 +1,5 @@
 class PartiesController < ApplicationController
+  before_action :logged_in_user, only: [:create, :destroy, :edit, :update]
   def index
     @parties = Party.paginate(page: params[:page])
   end
@@ -8,16 +9,20 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @party = Party.new(party_params)
+    @restaurant = Restaurant.find(params[:restaurant_id].to_f)
+    @party = @restaurant.parties.build(party_params)
     if @party.save
-      redirect_to @party
+      flash[:success] = "Party created!"
+      redirect_to @restaurant
     else
-      render 'new'
+      flash[:failure] = "Party NOT created!"
+      render @restaurant
     end
   end
  
   def show
     @party = Party.find(params[:id])
+    @restaurant = @party.restaurant
   end
   
   def edit

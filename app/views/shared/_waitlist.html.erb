@@ -1,0 +1,6 @@
+<% if @waitlist_items.any? %>
+  <ol class="parties">
+    <%= render @waitlist_items %>
+  </ol>
+  <%= will_paginate @waitlist_items %>
+<% end %>

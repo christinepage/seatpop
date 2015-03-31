@@ -20,7 +20,9 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @users = @restaurant.users
+    @restaurant = Restaurant.find(params[:id])
+    @party = @restaurant.parties.build if logged_in?
+    @waitlist_items = @restaurant.waitlist.paginate(page: params[:page])
   end
 
   def edit

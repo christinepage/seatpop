@@ -1,0 +1,16 @@
+    <%= form_for @party do |f| %>
+      <input name="restaurant" type="hidden" value=<%= yield(:restaurant) %> />
+      <input name="restaurant_id" type="hidden" value=<%= yield(:restaurant_id) %> />
+      <input name="restaurant_name" type="hidden" value=<%= yield(:restaurant_name) %> />
+      
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :size %>
+      <%= f.number_field :size, class: 'form-control' %>
+
+      <%= f.label :phone %>
+      <%= f.text_field :phone, class: 'form-control' %>
+
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>

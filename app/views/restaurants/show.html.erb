@@ -1,29 +1,32 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @restaurant.name) %>
+<% provide(:restaurant, @restaurant) %>
+<% provide(:restaurant_id, params[:id]) %>
+<% provide(:restaurant_name, @restaurant.name) %>
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="party_form">
+        <%= render 'shared/party_form' %>
+      </section>
+    </aside>
+  </div>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= @restaurant.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @restaurant.parties.any? %>
+      <h3>Waitlist (<%= @restaurant.parties.count %>)</h3>
+      <ol class="parties">
+        <%= render 'shared/waitlist' %>
+      </ol>
+      <%= will_paginate @waitlist_items %>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @restaurant.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @restaurant.description %>
-</p>
-
-<p>
-<strong>Users:</strong>
-<br>
-<% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <% if user.admin? %>
-        	<td>admin</td>
-        <% end %>        
-      </tr>
-<% end %>
-</p>
-
-<hr>
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'List', restaurants_path %>
+    <% end %>

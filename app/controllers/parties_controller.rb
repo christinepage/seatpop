@@ -9,7 +9,7 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id].to_i)
+    @restaurant = Restaurant.find(params[:restaurant_id].to_f)
     @party = @restaurant.parties.build(party_params)
     if @party.save
       flash[:success] = "Party created!"
@@ -52,10 +52,6 @@ class PartiesController < ApplicationController
     # let the twilio controller handle the sms
     redirect_to :controller => "twilio", :action => "send_sms",
       :phone =>@party.phone, :sms_body => "Your table is ready"
-  end
-
-  def sms_table_ready_estimate
-
   end
 
   private

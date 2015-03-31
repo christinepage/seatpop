@@ -22,5 +22,13 @@ class TwilioController < ApplicationController
     redirect_to :controller => 'parties', :action => 'index'
   end
 
+  def receive_sms
+    twiml = Twilio::TwiML::Response.new do |r|
+        r.Message do |message|
+        message.Body "It was received"        
+        end
+    end
+    twiml.text
+  end
 
 end

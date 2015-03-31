@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   
   get 'parties/:id/sms_table_ready' => 'parties#sms_table_ready'
   get 'twilio/send_sms' => 'twilio#send_sms'
+  get 'twilio/receive_sms' => 'twilio#receive_sms'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

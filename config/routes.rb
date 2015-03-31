@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   
+  get 'parties/:id/sms_table_ready' => 'parties#sms_table_ready'
+  get 'twilio/send_sms' => 'twilio#send_sms'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

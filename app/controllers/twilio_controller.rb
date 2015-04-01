@@ -27,9 +27,9 @@ class TwilioController < ApplicationController
   end
 
   def receive_sms 
-    body = params[:body] || ""
+    body = params[:Body] || ""
     party_key = body.to_i
-    logger.debug "Received a message from tel: #{params[:from]} with body: #{params[:body]}"
+    logger.debug "Received a message from tel: #{params[:From]} with body: #{params[:Body]}"
     logger.debug "Assuming party_key: #{party_key}"
     render 'process_sms.xml.erb', :content_type => 'text/xml'
   end

@@ -27,7 +27,7 @@ class TwilioController < ApplicationController
   end
 
   def receive_sms 
-    body = params[:body]) || ""
+    body = params[:body] || ""
     party_key = body.to_i
     logger.debug "Received a message from tel: #{params[:from]} with body: #{params[:body]}"
     logger.debug "Assuming party_key: #{party_key}"

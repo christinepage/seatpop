@@ -23,10 +23,9 @@ class TwilioController < ApplicationController
   end
 
   def receive_sms
-    twiml = Twilio::TwiML::Response.new do |r|
-        r.Message do |message|
-        message.Body "It was received"        
-        end
+    logger.debug "Received a message"
+    twiml = Twilio::TwiML::Response.new do |r|      
+      r.Sms "Here is your response!"
     end
     twiml.text
   end

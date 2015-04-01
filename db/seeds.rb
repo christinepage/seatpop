@@ -26,9 +26,9 @@ other_user = User.create!(name:  "Other User",
              activated: true,
              activated_at: Time.zone.now)
              
-Restaurant.create!(name:  "Delfina").users.append(current_user)
-Restaurant.create!(name:  "Saha").users.append(current_user)
-Restaurant.create!(name:  "Tacolicious").users.append(current_user)
+delfina = Restaurant.create!(name:  "Delfina", picture: Rails.root.join("public/uploads/restaurant/picture/1/8.jpg").open).users.append(current_user)
+saha = Restaurant.create!(name:  "Saha", picture: Rails.root.join("public/uploads/restaurant/picture/2/mo.jpg").open).users.append(current_user)
+taco = Restaurant.create!(name:  "Tacolicious", picture: Rails.root.join("public/uploads/restaurant/picture/3/Tacolicious_3_tacos.jpg").open).users.append(current_user)
 
 restaurants = Restaurant.order(:created_at).take(6)
 restaurants.each { |restaurant| 

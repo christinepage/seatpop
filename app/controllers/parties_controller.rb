@@ -1,6 +1,7 @@
+include ActionView::Helpers::DateHelper
 class PartiesController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :edit, :update]
-  before_action :correct_user,   only: [:show, :destroy, :edit, :update]
+  before_action :correct_user,   only: [:show,  :edit, :update]
   before_action :correct_restaurant_user,   only: [:create]
   
   def index
@@ -43,9 +44,17 @@ class PartiesController < ApplicationController
     end
   end
   
+#  def destroy
+ #   Party.find(params[:id]).destroy
+  #  redirect_to parties_url
+  #end
+  
   def destroy
-    Party.find(params[:id]).destroy
-    redirect_to parties_url
+    party = Party.find(params[:id])
+    party.restaurant.est_wait_time = Party.first.created_at - Time.now 
+    party.restaurant.save!
+    party.destroy
+    redirect_to(:back)
   end
   
   def sms_table_ready

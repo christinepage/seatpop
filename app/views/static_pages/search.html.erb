@@ -1,0 +1,22 @@
+<div class = "search">
+  <div class="center site-header">
+    <%= "#{$site_name}" %>
+  </div>
+  <div class = "seach_box">
+    <%= form_tag(search_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Restaurants", class: 'form-control'%>
+    <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+
+<p id="notice"><%= notice %></p>
+<h1>Restaurants</h1>
+
+
+<%= will_paginate @restaurants%>
+  <%= render @restaurants %>
+
+<%= will_paginate @restaurants%>
+

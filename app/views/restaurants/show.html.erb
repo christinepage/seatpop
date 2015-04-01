@@ -1,19 +1,24 @@
 <% provide(:title, @restaurant.name) %>
 <% provide(:restaurant_id, params[:id]) %>
 <% if logged_in? %>
+
+<script >
+$("body").css("background-image","url("+ <%= @restaurant.picture.url if @restaurant.picture? %> +")");
+</script>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
         <%= @restaurant.name %>
       </h1>
-      
     </section>
     <div class="row">
       <section class="party_form">
         <%= render 'shared/party_form' %>
       </section>
     </div>
+      
+    <%= image_tag(@restaurant.picture.small.url, width: "300") if @restaurant.picture? %>
   </aside>
   <div class="col-md-8">
     <% if @restaurant.parties.any? %>

@@ -6,7 +6,9 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Image</th>
       <th>Restaurant</th>
+      <th>Estimated Wait Time</th>
       <th>Description</th>
       <th>Show</th>
       <th>Edit</th>
@@ -21,4 +23,4 @@
 <%= will_paginate %>
 
 
-<%= link_to 'New Restaurant', new_restaurant_path %>
+<%= link_to 'Add New Restaurant', new_restaurant_path, class: "btn btn-primary"  %>

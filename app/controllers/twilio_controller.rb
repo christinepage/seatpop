@@ -1,6 +1,10 @@
 require 'twilio-ruby'
 
 class TwilioController < ApplicationController
+  include Webhookable
+
+  after_filter :set_header
+
   def send_sms
     @client = Twilio::REST::Client.new(
       TwilioConfig.config_param('account_sid'),

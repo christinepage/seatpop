@@ -4,9 +4,11 @@
   <span class="restaurant-waittime"><%= distance_of_time_in_words(restaurant.est_wait_time) if restaurant.est_wait_time %></span>
   <span class="restaurant-waittime"><%= "No wait!" if !restaurant.est_wait_time %></span>
   <% if logged_in? && current_user.admin?  %>
-  <td><%= restaurant.description %></td>
-  <td><%= link_to 'Show', restaurant %></td>
-  <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-  <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <span class="restaurant-admin">
+    <span><%= restaurant.description %></span>
+    <span><%= link_to 'Show', restaurant %></span>
+    <span><%= link_to 'Edit', edit_restaurant_path(restaurant) %></span>
+    <span><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+  </span>
   <% end %>
 </div>

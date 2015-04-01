@@ -28,10 +28,9 @@ class TwilioController < ApplicationController
 
   def receive_sms
     logger.debug "Received a message"
-    twiml = Twilio::TwiML::Response.new do |r|      
-      r.Sms "Here is your response!"
-    end
-    twiml.text
+    @city = params[:FromCity].capitalize
+    @state = params[:FromState]
+    render 'process_sms.xml.erb', :content_type => 'text/xml'
   end
 
 end

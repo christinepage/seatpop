@@ -6,6 +6,7 @@
     <%= form_tag(check_status_path, :method => "get", id: "search-form") do %>
     <%= text_field_tag :search_party_name, params[:search_party_name], placeholder: "Name*", :required => true, class: 'form-control'%>
     <%= text_field_tag :search_party_phone, params[:search_party_phone], placeholder: "Phone*", :required => true, class: 'form-control'%>
+    <%= text_field_tag :search_party_id, params[:search_party_id], placeholder: "ID*", :required => true, class: 'form-control'%>
     <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
     <% end %>
   </div>

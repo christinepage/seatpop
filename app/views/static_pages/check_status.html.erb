@@ -15,8 +15,12 @@
 
 <p id="notice"><%= notice %></p>
 <% if @party %>
-<h1>Estimated Wait Time = <%= Time.at(@party.restaurant.est_wait_time - (Time.now - @party.created_at)).utc.strftime("%H:%M:%S") %></h1>
-<h1>You are party #<%= @party_placement %> in the list</h1>
-
+<h1>You are party #<%= @party_placement %> at <%= link_to @party.restaurant.name, @party.restaurant %> </h1>
+<h1>Estimated Time Left = 
+<%if (Time.now - @party.created_at) > @party.restaurant.est_wait_time  %>
+ 5 mins </h1>
+<%else %>
+<%= ((@party.restaurant.est_wait_time - (Time.now - @party.created_at)) / 60).round %> mins </h1>
+<%end%>
 
 <% end %>

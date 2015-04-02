@@ -1,5 +1,5 @@
 <div class="box">
-  <% if logged_in? && current_user.admin?  %>
+  <% if logged_in? && restaurant.users.include?(current_user) %>
   
   <span class="restaurant-image"><%= link_to image_tag(restaurant.picture.small.url, width: "200", class: "img-thumbnail"), restaurant if restaurant.picture? %></span>
   <span class="restaurant-name"><%= restaurant.name %></span>
@@ -9,7 +9,7 @@
   
   <% else %>
   
-  <span class="restaurant-image"><%= image_tag(restaurant.picture.small.url, width: "200", class: "img-thumbnail") if restaurant.picture? %></span>
+  <span class="restaurant-image"><%= link_to image_tag(restaurant.picture.small.url, width: "200", class: "img-thumbnail"), restaurant if restaurant.picture? %></span>
   <span class="restaurant-name"><%= restaurant.name %></span>
   <span class="restaurant-waittime"><%= distance_of_time_in_words(restaurant.est_wait_time) if restaurant.est_wait_time %></span>
   <span class="restaurant-waittime"><%= "No wait!" if !restaurant.est_wait_time %></span>

@@ -11,6 +11,17 @@ class StaticPagesController < ApplicationController
     end
   end
   
+  
+
+  def check_status
+    if params[:search_party_name] && params[:search_party_phone]
+      @party = Party.find_by(name: params[:search_party_name], phone: params[:search_party_phone])
+      @party_placement = Party.where(restaurant:@party.restaurant, created_at: (Time.zone.now.beginning_of_day..@party.created_at), party_status_id: 1).count
+    else
+      
+    end
+  end
+  
   def staff_home
     @restaurant = current_user.restaurants.first
   end

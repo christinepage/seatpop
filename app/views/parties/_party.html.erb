@@ -1,3 +1,5 @@
+
+<% if logged_in?  && party.restaurant.users.include?(current_user) %>
 <tr id="party-<%= party.id %>">
   <td class="partyContent"><%= party.name %></td>
   <td class="partyContent"><%= party.size %></td>
@@ -10,3 +12,11 @@
   <td><%= link_to 'Delete', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   <td><%= link_to 'Notify', id: party.id, controller: "parties", method: :get, action: :table_ready %></td>
 </tr>
+<% else %>
+<tr id="party-<%= party.id %>">
+  <td class="partyContent"><%= party.size %></td>
+  <td class="timestamp">
+    <%= time_ago_in_words(party.created_at) %>
+  </td>
+</tr>
+<% end %>

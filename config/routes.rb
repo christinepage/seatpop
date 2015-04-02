@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'about'   =>  'static_pages#about'
   get 'contact' =>  'static_pages#contact'
   get 'search'  =>  'static_pages#search'
+  get 'check_status'  =>  'static_pages#check_status'
   
   get 'search_results'  =>  'static_pages#search'
   get 'staff_home'  =>  'static_pages#staff_home'

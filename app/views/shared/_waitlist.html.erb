@@ -1,5 +1,6 @@
 <% if @waitlist_items.any? %>
 
+<% if logged_in?  && @restaurant.users.include?(current_user) %>
 <table class="table">
   <tr class="parties">
   <th>Name</th>
@@ -8,9 +9,21 @@
   <th>Waiting</th>
   <th>Restaurant</th>
   <th>Edit</th>
-  <th>Delete</th>
+  <th>Seat/Delete</th>
+  <th>Notify</th>
   </tr>
     <%= render @waitlist_items %>
 </table>
   <%= will_paginate @waitlist_items %>
+<% else %>
+
+<table class="table">
+  <tr class="parties">
+  <th>Size</th>
+  <th>Waiting</th>
+  </tr>
+    <%= render @waitlist_items %>
+</table>
+<% end %>
+
 <% end %>

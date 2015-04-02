@@ -1,11 +1,11 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @user.first_name) %>
 <div class = "seatpop_image">
   <div class="center site-header">
     <%= "#{$site_name}" %>
   </div>
    <br>
     <div class="center welcome-user">Welcome 
-        <%= @user.name %></div>
+        <%= @user.first_name %></div>
 </div>
 
 <div>
@@ -13,9 +13,10 @@
 <p id="notice"><%= notice %></p>
 <h1>My Restaurants</h1>
 
-
+<div class = "restaurants">
 <%= will_paginate @restaurants %>
   <%= render @restaurants %>
 
 <%= will_paginate @restaurants %>
+</div>
 </div>

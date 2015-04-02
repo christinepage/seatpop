@@ -1,6 +1,5 @@
 <% provide(:title, @restaurant.name) %>
 <% provide(:restaurant_id, params[:id]) %>
-<% if logged_in? %>
 
 <script >
 $("body").css("background-image","url("+ <%= @restaurant.picture.url if @restaurant.picture? %> +")");
@@ -13,6 +12,8 @@ $("body").css("background-image","url("+ <%= @restaurant.picture.url if @restaur
       </h1>
       
     </section>
+<% if logged_in?  && @restaurant.users.include?(current_user) %>
+
     
     <span><%= link_to 'Edit', edit_restaurant_path(@restaurant) %></span>
     <span><%= link_to 'Destroy', @restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></span>
@@ -39,7 +40,16 @@ $("body").css("background-image","url("+ <%= @restaurant.picture.url if @restaur
     <% end %>
   </div>
 </div>
-
+<%else %>
+   <%= image_tag(@restaurant.picture.small.url, width: "300") if @restaurant.picture? %>
+  </aside>
+  <div class="col-md-8">
+    <% if @restaurant.parties.any? %>
+      <h3>Waitlist</h3>
+      
+      <%= render 'shared/waitlist' %>
+    <% end %>
+  </div>
     <% end %>
     
     

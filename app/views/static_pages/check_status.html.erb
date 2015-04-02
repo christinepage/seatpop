@@ -1,0 +1,22 @@
+<% provide(:title, 'Check Wait Status') %>
+<h1>Check Wait Status</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">   
+    <%= form_tag(check_status_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search_party_name, params[:search_party_name], placeholder: "Name*", :required => true, class: 'form-control'%>
+    <%= text_field_tag :search_party_phone, params[:search_party_phone], placeholder: "Phone*", :required => true, class: 'form-control'%>
+    <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<p id="notice"><%= notice %></p>
+<% if @party %>
+<h1>Estimated Wait Time = <%= Time.at(@party.restaurant.est_wait_time - (Time.now - @party.created_at)).utc.strftime("%H:%M:%S") %></h1>
+<h1>You are party #<%= @party_placement %> in the list</h1>
+
+
+<% end %>

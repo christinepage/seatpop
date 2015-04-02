@@ -11,7 +11,11 @@ $("body").css("background-image","url("+ <%= @restaurant.picture.url if @restaur
       <h1>
         <%= @restaurant.name %>
       </h1>
+      
     </section>
+    
+    <span><%= link_to 'Edit', edit_restaurant_path(@restaurant) %></span>
+    <span><%= link_to 'Destroy', @restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></span>
     <div class="row">
       <section class="party_form">
         <%= render 'shared/party_form' %>
@@ -30,3 +34,5 @@ $("body").css("background-image","url("+ <%= @restaurant.picture.url if @restaur
 </div>
 
     <% end %>
+    
+    

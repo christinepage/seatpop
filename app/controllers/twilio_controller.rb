@@ -39,7 +39,7 @@ class TwilioController < ApplicationController
 
       @waiting_list_pos = ahead_list.count
       logger.debug "Received a message from tel: #{params[:From]} with body: #{params[:Body]}"
-      logger.debug "Assuming party_key: #{party_key}"
+      logger.debug "Assuming party_key: #{@party_key}"
       render 'process_sms.xml.erb', :content_type => 'text/xml'
     end
   end

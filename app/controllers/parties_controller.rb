@@ -17,7 +17,7 @@ class PartiesController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id].to_f)
     @party = @restaurant.parties.build(party_params)
     if @party.save
-      flash[:success] = "Party created!"
+      flash[:success] = "Party created with id #{@party.id} !"
       redirect_to @restaurant
     else
       flash[:danger] = "Party could NOT be created!"

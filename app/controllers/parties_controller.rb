@@ -57,8 +57,18 @@ class PartiesController < ApplicationController
     redirect_to(:back)
   end
   
+  def seat
+    party = Party.find(params[:id])
+    party.restaurant.est_wait_time = Party.first.created_at - Time.now 
+    party.restaurant.save!
+    party.update_attributes(party_status: PartyStatus.find_by(name: "seated"))
+    redirect_to(:back)
+  end
+  
   def table_ready
     @party = Party.find(params[:id])
+    @party.restaurant.est_wait_time = Party.first.created_at - Time.now 
+    @party.restaurant.save!
     # either set flash or append to it, this informational message
     (flash[:notice] ||= "") << " Texting " + @party.phone + "..."
 
@@ -67,6 +77,16 @@ class PartiesController < ApplicationController
       :phone =>@party.phone, :sms_body => "#{@party.name}, Your table is ready at #{@party.restaurant.name} (party: #{@party.id})"
 
     @party.update_attributes(party_status: PartyStatus.find_by(name: "seated"))
+  end
+
+  def notify
+    @party = Party.find(params[:id])
+    # either set flash or append to it, this informational message
+    (flash[:notice] ||= "") << " Texting " + @party.phone + "..."
+
+    # let the twilio controller handle the sms
+    redirect_to :controller => "twilio", :action => "send_sms", :restaurant_id => @party.restaurant_id,
+      :phone =>@party.phone, :sms_body => "#{@party.name}, Your table is coming up at #{@party.restaurant.name} (party: #{@party.id})"
   end
 
   private

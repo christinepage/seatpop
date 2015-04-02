@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   
   get 'parties/:id/table_ready' => 'parties#table_ready'
+  get 'parties/:id/notify' => 'parties#notify'
   get 'twilio/send_sms' => 'twilio#send_sms'
   get 'twilio/receive_sms' => 'twilio#receive_sms'
 

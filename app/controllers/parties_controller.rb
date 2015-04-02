@@ -17,8 +17,12 @@ class PartiesController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id].to_f)
     @party = @restaurant.parties.build(party_params)
     if @party.save
-      flash[:success] = "Party created!"
-      redirect_to @restaurant
+      flash[:success] = "Party created with id #{@party.id} !"
+      redirect_to :controller => "twilio",
+        :action => "send_sms",
+        :restaurant_id => @party.restaurant_id,
+        :phone =>@party.phone,
+        :sms_body => "#{@party.name}, Your party id at #{@party.restaurant.name} is: #{@party.id}"
     else
       flash[:danger] = "Party could NOT be created!"
       render @restaurant

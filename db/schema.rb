@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326235608) do
+ActiveRecord::Schema.define(version: 20150401011506) do
 
   create_table "parties", force: :cascade do |t|
     t.string   "name"
+    t.integer  "restaurant_id"
     t.integer  "size"
     t.string   "phone"
-    t.datetime "start_time"
+    t.string   "notes"
     t.datetime "seated_time"
     t.datetime "exit_time"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "restaurant_id"
     t.integer  "party_status_id"
   end
 
@@ -38,13 +38,20 @@ ActiveRecord::Schema.define(version: 20150326235608) do
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "est_wait_time"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "picture"
   end
 
-  create_table "restaurants_users", id: false, force: :cascade do |t|
-    t.integer "restaurant_id", null: false
-    t.integer "user_id",       null: false
+  add_index "restaurants", ["user_id"], name: "index_restaurants_on_user_id"
+
+  create_table "restaurants_users", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|

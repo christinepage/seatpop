@@ -1,7 +1,5 @@
-    <%= form_for @party do |f| %>
-      <input name="restaurant" type="hidden" value=<%= yield(:restaurant) %> />
+    <%= form_for @party, html: { class: "form-horizontal"} do |f|   %>
       <input name="restaurant_id" type="hidden" value=<%= yield(:restaurant_id) %> />
-      <input name="restaurant_name" type="hidden" value=<%= yield(:restaurant_name) %> />
       
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>

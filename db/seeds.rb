@@ -10,7 +10,7 @@ PartyStatus.create!(name:  "waiting")
 PartyStatus.create!(name:  "seated")
 PartyStatus.create!(name:  "exited")
 
-User.create!(name:  "Example User",
+current_user = User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
              password_confirmation: "foobar",
@@ -18,9 +18,17 @@ User.create!(name:  "Example User",
              activated: true,
              activated_at: Time.zone.now)
 
-Restaurant.create!(name:  "Delfina")
-Restaurant.create!(name:  "Saha")
-Restaurant.create!(name:  "Tacolicious")
+other_user = User.create!(name:  "Other User",
+             email: "example1@railstutorial.org",
+             password:              "foobar",
+             password_confirmation: "foobar",
+             admin:     false,
+             activated: true,
+             activated_at: Time.zone.now)
+             
+delfina = Restaurant.create!(name:  "Delfina", picture: Rails.root.join("public/uploads/restaurant/picture/1/8.jpg").open).users.append(current_user)
+saha = Restaurant.create!(name:  "Saha", picture: Rails.root.join("public/uploads/restaurant/picture/2/mo.jpg").open).users.append(current_user)
+taco = Restaurant.create!(name:  "Tacolicious", picture: Rails.root.join("public/uploads/restaurant/picture/3/Tacolicious_3_tacos.jpg").open).users.append(current_user)
 
 restaurants = Restaurant.order(:created_at).take(6)
 restaurants.each { |restaurant| 

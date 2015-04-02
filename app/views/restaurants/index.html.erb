@@ -2,23 +2,11 @@
 
 <h1>Restaurants</h1>
 
+<div>
+<%= link_to 'Add New Restaurant', new_restaurant_path, class: "btn btn-primary"  %>
+</div>
+<div>
 <%= will_paginate %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Restaurant</th>
-      <th>Description</th>
-      <th>Show</th>
-      <th>Edit</th>
-      <th>Destroy</th>
-    </tr>
-  </thead>
-  <tbody>
   <%= render @restaurants %>
-  </tbody>
-</table>
-
 <%= will_paginate %>
-
-
-<%= link_to 'New Restaurant', new_restaurant_path %>
+</div>

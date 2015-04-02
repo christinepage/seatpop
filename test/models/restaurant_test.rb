@@ -3,7 +3,7 @@ require 'test_helper'
 class RestaurantTest < ActiveSupport::TestCase
 
   def setup
-    @restaurant = Restaurant.create(name: "La Nebbia")
+    @restaurant = Restaurant.new(name: "Gino's")
   end
   
   test "associated parties should be destroyed" do

@@ -1,11 +1,16 @@
+include ActionView::Helpers::DateHelper
 class PartiesController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy, :edit, :update]
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :edit, :update]
+  before_action :correct_user,   only: [:show,  :edit, :update]
+  before_action :correct_restaurant_user,   only: [:create]
+  
   def index
     @parties = Party.paginate(page: params[:page])
   end
  
   def new
     @party = Party.new
+    @restaurant = Restaurant.find_by(id: params[:id])
   end
 
   def create
@@ -15,7 +20,7 @@ class PartiesController < ApplicationController
       flash[:success] = "Party created!"
       redirect_to @restaurant
     else
-      flash[:failure] = "Party NOT created!"
+      flash[:danger] = "Party could NOT be created!"
       render @restaurant
     end
   end
@@ -39,9 +44,17 @@ class PartiesController < ApplicationController
     end
   end
   
+#  def destroy
+ #   Party.find(params[:id]).destroy
+  #  redirect_to parties_url
+  #end
+  
   def destroy
-    Party.find(params[:id]).destroy
-    redirect_to parties_url
+    party = Party.find(params[:id])
+    party.restaurant.est_wait_time = Party.first.created_at - Time.now 
+    party.restaurant.save!
+    party.destroy
+    redirect_to(:back)
   end
   
   def sms_table_ready
@@ -58,5 +71,23 @@ class PartiesController < ApplicationController
 
     def party_params
       params.require(:party).permit(:name, :size, :phone)
+    end
+    
+    def correct_user
+      @party = Party.find_by(id: params[:id])
+      @restaurant = current_user.restaurants.find_by(id: @party.restaurant_id)
+      if @restaurant.nil? 
+        flash[:danger] = "Sorry, you are not authorized for this action!"
+        redirect_to root_url 
+      end
+    end
+    
+    def correct_restaurant_user
+      @party = Party.find_by(id: params[:id])
+      @restaurant = current_user.restaurants.find_by(id: params[:restaurant_id])
+      if @restaurant.nil? 
+        flash[:danger] = "Sorry, you are not authorized for this action!"
+        redirect_to root_url 
+      end
     end
 end

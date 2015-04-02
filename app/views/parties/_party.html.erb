@@ -1,9 +1,11 @@
-<li id="party-<%= party.id %>">
-  <span class="restaurant"><%= link_to party.restaurant.name, party.restaurant %></span>
-  <span class="partyContent"><%= party.name %></span>
-  <span class="partyContent"><%= party.size %></span>
-  <span class="partyContent"><%= party.phone %></span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(party.created_at) %> ago.
-  </span>
-</li>
+<tr id="party-<%= party.id %>">
+  <td class="partyContent"><%= party.name %></td>
+  <td class="partyContent"><%= party.size %></td>
+  <td class="partyContent"><%= party.phone %></td>
+  <td class="timestamp">
+    <%= time_ago_in_words(party.created_at) %>
+  </td>
+  <td class="restaurant"><%= link_to party.restaurant.name, party.restaurant %></td>
+  <td><%= link_to 'Edit', edit_party_path(party) %></td>
+  <td><%= link_to 'Delete', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

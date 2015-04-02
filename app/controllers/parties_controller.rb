@@ -63,8 +63,8 @@ class PartiesController < ApplicationController
     (flash[:notice] ||= "") << " Texting " + @party.phone + "..."
 
     # let the twilio controller handle the sms
-    redirect_to :controller => "twilio", :action => "send_sms",
-      :phone =>@party.phone, :sms_body => "#{@party.name}, Your table is ready (party: #{@party.id})"
+    redirect_to :controller => "twilio", :action => "send_sms", :restaurant_id => @party.restaurant_id,
+      :phone =>@party.phone, :sms_body => "#{@party.name}, Your table is ready at #{@party.restaurant.name} (party: #{@party.id})"
 
     @party.update_attributes(party_status: PartyStatus.find_by(name: "seated"))
   end

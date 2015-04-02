@@ -23,15 +23,25 @@ class TwilioController < ApplicationController
       flash[:notice] = "The call to #{params[:phone]} did not go through."
       (flash[:errors] ||= []) << e.message
     end
-    redirect_to :controller => 'parties', :action => 'index'
+    redirect_to :controller => 'restaurants', :action => 'show', :id => params[:restaurant_id]
   end
 
   def receive_sms 
     body = params[:Body] || ""
-    party_key = body.to_i
-    logger.debug "Received a message from tel: #{params[:From]} with body: #{params[:Body]}"
-    logger.debug "Assuming party_key: #{party_key}"
-    render 'process_sms.xml.erb', :content_type => 'text/xml'
+    @party_key = body.to_i
+
+    @party = Party.find(@party_key)
+    if @party.nil?
+      render 'process_bad_party_id.xml.erb', :content_type => 'text/xml'
+    else
+      @restaurant = Restaurant.find(@party.restaurant_id)
+      ahead_list = Party.where("restaurant_id = #{@party.restaurant_id} AND party_status_id = 1 AND created_at <= '#{@party.created_at}'")
+
+      @waiting_list_pos = waitlist.count
+      logger.debug "Received a message from tel: #{params[:From]} with body: #{params[:Body]}"
+      logger.debug "Assuming party_key: #{party_key}"
+      render 'process_sms.xml.erb', :content_type => 'text/xml'
+    end
   end
 
 end

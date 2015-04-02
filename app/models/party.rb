@@ -11,8 +11,7 @@ class Party < ActiveRecord::Base
   VALID_PHONE_REGEX = /(1?[ -.]?\(?\d{3}\)?[ -.]?\d{3}[ -.]?\d{4}[ extension\.]*\d{0,5})/i
   validates :phone, length: { maximum: 50 },
                     allow_blank: true,
-                    format: { with: VALID_PHONE_REGEX },
-                    uniqueness: true
+                    format: { with: VALID_PHONE_REGEX }
 
   after_initialize :init
   

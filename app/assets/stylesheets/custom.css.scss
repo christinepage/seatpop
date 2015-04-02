@@ -242,7 +242,7 @@ aside {
     margin-bottom: 5px;
   }
 }
-.search{
+.seatpop_image{
   background-image: url("bar-413709_1200_400_crop.jpg");
   height:300px;
 }
@@ -254,10 +254,17 @@ aside {
     padding-left: 75px;
 }
 .site-header{
-    padding-top: 15px;
+    padding-top: 20px;
     color: white;
     font-size: 5em;
+    height: 100px;
 
+}
+.welcome-user{
+    color: white;
+    font-size: 2em;
+    text-shadow: 1px 1px #0A0500;
+    
 }
 .box {
   display: inline-block;
@@ -284,7 +291,7 @@ aside {
 .restaurant-waittime{
   color: gray;
   position: absolute;
-  padding-top:200px;
+  margin-top:200px;
   width:200px;
   text-align:right;
   right:10px;
@@ -293,9 +300,10 @@ aside {
 
 .restaurant-admin{
   position: absolute;
-  padding-top:210px;
+  padding-top:215px;
   width:200px;
   right:10px;
+  padding-left:20px;
   
 }
 /* miscellaneous */

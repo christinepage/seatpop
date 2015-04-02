@@ -26,9 +26,16 @@ $("body").css("background-image","url("+ <%= @restaurant.picture.url if @restaur
   </aside>
   <div class="col-md-8">
     <% if @restaurant.parties.any? %>
-      <h3>Waitlist (<%= @restaurant.parties.count %>)</h3>
+      <h3>Waitlist (<%= @restaurant.waitlist.count %>)</h3>
       
       <%= render 'shared/waitlist' %>
+    <% end %>
+  </div>
+  <div class="col-md-8">
+    <% if @restaurant.parties.any? %>
+      <h3>Seated Parties (<%= @restaurant.seatlist.count %>)</h3>
+      
+      <%= render 'shared/seatlist' %>
     <% end %>
   </div>
 </div>

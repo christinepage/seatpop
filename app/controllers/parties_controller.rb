@@ -57,14 +57,16 @@ class PartiesController < ApplicationController
     redirect_to(:back)
   end
   
-  def sms_table_ready
+  def table_ready
     @party = Party.find(params[:id])
     # either set flash or append to it, this informational message
     (flash[:notice] ||= "") << " Texting " + @party.phone + "..."
 
     # let the twilio controller handle the sms
     redirect_to :controller => "twilio", :action => "send_sms",
-      :phone =>@party.phone, :sms_body => "Your table is ready"
+      :phone =>@party.phone, :sms_body => "#{@party.name}, Your table is ready (party: #{@party.id})"
+
+    @party.update_attributes(party_status: PartyStatus.find_by(name: "seated"))
   end
 
   private

@@ -1,0 +1,16 @@
+<% if @seatlist_items.any? %>
+
+<table class="table">
+  <tr class="parties">
+  <th>Name</th>
+  <th>Size</th>
+  <th>Phone</th>
+  <th>Waiting</th>
+  <th>Restaurant</th>
+  <th>Edit</th>
+  <th>Delete</th>
+  </tr>
+    <%= render @seatlist_items %>
+</table>
+  <%= will_paginate @seatlist_items %>
+<% end %>

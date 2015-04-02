@@ -8,4 +8,5 @@
   <td class="restaurant"><%= link_to party.restaurant.name, party.restaurant %></td>
   <td><%= link_to 'Edit', edit_party_path(party) %></td>
   <td><%= link_to 'Delete', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to 'Notify', id: party.id, controller: "parties", method: :get, action: :table_ready %></td>
 </tr>

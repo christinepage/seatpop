@@ -6,9 +6,17 @@ class Restaurant < ActiveRecord::Base
   validate  :picture_size
   
   def waitlist 
-    Party.where("restaurant_id = ?", id)
+    Party.where("restaurant_id = ? AND party_status_id = 1", id)
   end
   
+  def seatlist 
+    Party.where("restaurant_id = ? AND party_status_id = 2", id)
+  end
+
+  def exitlist 
+    Party.where("restaurant_id = ? AND party_status_id = 3", id)
+  end
+
   def self.search(query)
     where("name like ?", "%#{query}%") 
   end

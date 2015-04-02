@@ -1,5 +1,7 @@
 class Party < ActiveRecord::Base
   belongs_to :restaurant
+  belongs_to :party_status
+
   default_scope -> { order(created_at: :asc) }
   validates :restaurant_id, presence: true
   
@@ -11,5 +13,12 @@ class Party < ActiveRecord::Base
                     allow_blank: true,
                     format: { with: VALID_PHONE_REGEX },
                     uniqueness: true
+
+  after_initialize :init
+  
+  def init
+    self.party_status_id ||= 1
+  end
+
   
 end

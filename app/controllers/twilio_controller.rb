@@ -35,7 +35,8 @@ class TwilioController < ApplicationController
       render 'process_bad_party_id.xml.erb', :content_type => 'text/xml'
     else
       @restaurant = Restaurant.find(@party.restaurant_id)
-      ahead_list = Party.where("restaurant_id = #{@party.restaurant_id} AND party_status_id = 1 AND created_at <= '#{@party.created_at}'")
+     # ahead_list = Party.where("restaurant_id = #{@party.restaurant_id} AND party_status_id = 1 AND created_at <= '#{@party.created_at}'")
+      ahead_list = Party.where(restaurant:@party.restaurant, created_at: (Time.zone.now.beginning_of_day..@party.created_at), party_status_id: 1).count
 
       @waiting_list_pos = ahead_list.count
       logger.debug "Received a message from tel: #{params[:From]} with body: #{params[:Body]}"

@@ -18,7 +18,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def self.search(query)
-    where("name like ?", "%#{query}%") 
+    where("lower(name) like ?", "%#{query.downcase}%") 
   end
 
 

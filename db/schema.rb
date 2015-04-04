@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150401011506) do
     t.integer  "size"
     t.string   "phone"
     t.string   "notes"
+    t.integer  "token"
     t.datetime "seated_time"
     t.datetime "exit_time"
     t.datetime "created_at",      null: false

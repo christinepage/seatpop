@@ -6,6 +6,7 @@ class CreateParties < ActiveRecord::Migration
       t.integer :size
       t.string :phone
       t.string :notes
+      t.integer :token
       t.datetime :seated_time
       t.datetime :exit_time
 

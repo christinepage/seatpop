@@ -1,0 +1,105 @@
+* [33me48337f[m[33m ([1;36mHEAD[m[33m, [1;32mtemp[m[33m)[m Revert "Revert "updating twilio configs""
+* [33m8be3777[m Revert "updating twilio configs"
+[31m|[m * [33m4b226e4[m[33m ([1;31morigin/master[m[33m, [1;32mmaster[m[33m)[m Revert "changing the prod picture uploader storage to filesystem"
+[31m|[m * [33m4460b42[m[33m ([1;31mheroku/master[m[33m)[m fixing a typo in twilio config
+[31m|[m[31m/[m  
+* [33m1d4caaa[m updating twilio configs
+* [33m6f91df6[m temp change
+* [33m246f61d[m changing the prod picture uploader storage to filesystem
+* [33m5c9b3fe[m Revert "temp change of configs"
+* [33m3489e47[m temp change of configs
+* [33m6d4b839[m changing ahead_list.count to ahead_list. it somehow got back into the code
+* [33mb646ff8[m fixing the party placement query
+* [33me67cbd0[m Revert "temp change"
+* [33mdf99f41[m temp change
+* [33mf4e6d87[m making search case insensitive
+* [33ma3dc002[m Adding id in the check status page
+*   [33m05db91c[m merging with Christine's code
+[33m|[m[34m\[m  
+[33m|[m * [33m615ac4c[m added outgoing SMS when party first created
+[33m|[m *   [33m84a4864[m Merge branch 'master' of bitbucket.org:BeverlyLeu/seatpop
+[33m|[m [35m|[m[36m\[m  
+[33m|[m * [36m|[m [33m6a0b143[m added display of id when create party
+[33m|[m * [36m|[m [33me4e65e7[m fixed variable change, party_key in TwilioController
+[33m|[m * [36m|[m [33mbbb185b[m fixed variable change, waitlist in TwilioController
+* [36m|[m [36m|[m [33m4ac8ebe[m making seat/delete buttons point to table_ready, and creating a notify function
+* [36m|[m [36m|[m [33m3103afc[m updating check status page details
+* [36m|[m [36m|[m [33m7ff6f52[m creating patron restaurant/waitlist views and adding check wait status page
+[36m|[m [36m|[m[36m/[m  
+[36m|[m[36m/[m[36m|[m   
+* [36m|[m [33meab5856[m testing asset_url on heroku
+[36m|[m[36m/[m  
+* [33m7d918e9[m after notify, go to restaurant show action, added waiting list position to outgoing sms after receiving request
+* [33mfdd587e[m renamed carrier_wave.rb to carrierwave.rb
+* [33m36a9be4[m some changes to restaurant/party MVC to separate waiting/seated lists and allow sms notifications for waiting parties
+*   [33m7f1cdb6[m Merge branch 'master' of bitbucket.org:BeverlyLeu/seatpop
+[1;31m|[m[1;32m\[m  
+[1;31m|[m * [33mfc6c374[m updating the logged in users page
+* [1;32m|[m   [33mccdd6a5[m Merge branch 'master' of bitbucket.org:BeverlyLeu/seatpop
+[1;33m|[m[1;32m\[m [1;32m\[m  
+[1;33m|[m [1;32m|[m[1;32m/[m  
+[1;33m|[m * [33m0648d74[m cleaning up restaurant index
+[1;33m|[m * [33m89450ff[m making the unlogged in user's home page a restaurant search page
+[1;33m|[m * [33m18d2309[m fixing migrate file extension, party phone field,  and adding picture uploading
+[1;33m|[m * [33mb6f0176[m changing has_and_belongs_to_many to has_many through: and cleaning up ui
+[1;33m|[m *   [33m6f90e93[m It's needed because you say it is?:wq Merge branch 'master' of bitbucket.org:BeverlyLeu/seatpop
+[1;33m|[m [1;35m|[m[1;36m\[m  
+[1;33m|[m [1;35m|[m * [33m8fe4a5f[m README.md edited online with Bitbucket
+[1;33m|[m * [1;36m|[m [33m4ed4bdd[m updating relationship details between User, Restaurants, and Parties
+* [1;36m|[m [1;36m|[m [33mcf3596b[m receive_sms
+* [1;36m|[m [1;36m|[m [33m050a11c[m receive_sms
+* [1;36m|[m [1;36m|[m [33m8670bd9[m receive_sms
+* [1;36m|[m [1;36m|[m [33md99d362[m receive_sms
+* [1;36m|[m [1;36m|[m [33m03a569c[m process sms with view
+* [1;36m|[m [1;36m|[m [33mc825425[m added webhookable stuff
+* [1;36m|[m [1;36m|[m [33m49571d9[m experimenting with receive_sms
+* [1;36m|[m [1;36m|[m [33md4032a3[m initial Twilio sms receiving functionality
+[1;36m|[m [1;36m|[m[1;36m/[m  
+[1;36m|[m[1;36m/[m[1;36m|[m   
+* [1;36m|[m [33mc724aee[m added initial SMS party notification using Twilio
+* [1;36m|[m [33mda7445a[m added initial SMS party notification using Twilio
+[1;36m|[m[1;36m/[m  
+*   [33m545d375[m added current user to a newly added restaurant's users
+[31m|[m[32m\[m  
+[31m|[m * [33m5f25fe7[m removing restaurant_list_items from StaticPagesController
+[31m|[m * [33mbc234c4[m linking parties to restaurants
+* [32m|[m [33m3824425[m added current user to a newly added restaurant's users
+[32m|[m[32m/[m  
+* [33m9056ec5[m adding Restaurant and Parties links to header and pagination and bootstrap style to restaurants
+* [33m501181d[m adding parties interface
+* [33mc8b96b8[m added CRUD controller operations and views for restaurants
+*   [33m3b79359[m Merge branch 'master' of bitbucket.org:BeverlyLeu/seatpop
+[33m|[m[34m\[m  
+[33m|[m * [33md73f522[m Creating global variable
+* [34m|[m [33m0efb9fd[m created many to many association between users and restaurants
+[34m|[m[34m/[m  
+* [33m19a78e2[m[33m ([1;32maccount-activation-password-reset[m[33m)[m Add password resets & email configuration
+* [33madd9b18[m Add account activations
+*   [33mad2f8cb[m Finish user edit, update, index, and destroy actions
+[35m|[m[36m\[m  
+[35m|[m *   [33m5dda2f0[m Merge branch 'master' of bitbucket.org:BeverlyLeu/seatpop
+[35m|[m [1;31m|[m[1;32m\[m  
+[35m|[m * [1;32m|[m [33md9344a8[m added foreign keys for restaurant and party status to Party model
+* [1;32m|[m [1;32m|[m [33m4a9761f[m[33m ([1;32mupdating-users[m[33m)[m Finish user edit, update, index, and destroy actions
+[1;32m|[m [1;32m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[1;32m|[m   
+* [1;32m|[m   [33mad5a4a0[m Finish log in/log out and merge config/routes.rb and db/schema.rb
+[1;33m|[m[1;32m\[m [1;32m\[m  
+[1;33m|[m [1;32m|[m[1;32m/[m  
+[1;33m|[m * [33m8c17b03[m added Party, Restaurant, PartyStatus resources and PartyStatus default values
+* [1;34m|[m [33m2331674[m[33m ([1;32mlog-in-log-out[m[33m)[m Finish log in/log out
+[1;34m|[m[1;34m/[m  
+* [33m40ef423[m fixing the flash message
+* [33mc429bd0[m Use SSL and the Puma webserver in production
+* [33m478ab86[m Finish user signup
+* [33m748ea3b[m[33m ([1;31morigin/sign-up[m[33m, [1;32msign-up[m[33m)[m Finish user signup
+* [33mb6e2b0f[m Chapter 7 Sign Up Page: Halfway Point
+* [33m6d91692[m[33m ([1;31morigin/modeling-users[m[33m, [1;32mmodeling-users[m[33m)[m Make a basic User model (including secure passwords)
+* [33m9cc7dea[m[33m ([1;31morigin/filling-in-layout[m[33m, [1;32mfilling-in-layout[m[33m)[m Finish layout and routes
+* [33m19d507f[m Adding full_title helper
+* [33mb320cbe[m Adding extra testing configurations (solves exercise 3.7)
+* [33m316a785[m[33m ([1;31morigin/static-pages[m[33m, [1;32mstatic-pages[m[33m)[m Finish static pages
+* [33m4e1cab4[m Add a Static Pages controller
+* [33m78fe395[m Add welcome
+* [33mce1bb98[m Message
+* [33m2100a7a[m Initializing repository

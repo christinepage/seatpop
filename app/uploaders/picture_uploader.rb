@@ -21,7 +21,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
   
   if Rails.env.production?
-    storage :fog
+    storage :file #:fog
   else
     storage :file
   end

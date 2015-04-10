@@ -1,0 +1,4 @@
+twilio_signature_header: HTTP_X_TWILIO_SIGNATURE
+auth_token: <%= ENV["twilio_auth_token"] %>
+account_sid: <%= ENV["twilio_account_sid"] %>
+caller: <%= ENV["twilio_caller"] %>

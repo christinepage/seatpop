@@ -19,5 +19,8 @@ class Party < ActiveRecord::Base
     self.party_status_id ||= 1
   end
 
+  def waiting_list_position
+    Party.where(restaurant:self.restaurant, party_status_id: 1).where(["created_at <= ?", self.created_at]).count
+  end
   
 end

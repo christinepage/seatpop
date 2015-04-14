@@ -93,6 +93,17 @@ class PartiesController < ApplicationController
       :phone =>@party.phone, :sms_body => "#{@party.name}, Your table is coming up at #{@party.restaurant.name} (party: #{@party.id})"
   end
 
+  def cancel
+    party = Party.find(params[:id])
+    party.restaurant.est_wait_time = Party.first.created_at - Time.now 
+    party.restaurant.save!
+    party.update_attributes(party_status: PartyStatus.find_by(name: "cancelled"))
+    redirect_to(:back)
+  end
+    
+  def drop_down
+  end
+    
   private
 
     def party_params
@@ -116,4 +127,6 @@ class PartiesController < ApplicationController
         redirect_to root_url 
       end
     end
+    
+    
 end

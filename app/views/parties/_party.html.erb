@@ -1,6 +1,7 @@
 
 <% if logged_in?  && party.restaurant.users.include?(current_user) %>
 <tr id="party-<%= party.id %>">
+  <td class="partyContent"><%= party.id %></td>
   <td class="partyContent"><%= party.name %></td>
   <td class="partyContent"><%= party.size %></td>
   <td class="partyContent"><%= party.phone %></td>

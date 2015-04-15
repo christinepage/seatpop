@@ -19,8 +19,20 @@ class Party < ActiveRecord::Base
     self.party_status_id ||= 1
   end
 
+  def status
+    return self.party_status.name
+  end
+
+  def waiting?
+    self.status == "waiting" ? true : false
+  end
+
   def waiting_list_position
-    Party.where(restaurant:self.restaurant, party_status_id: 1).where(["created_at <= ?", self.created_at]).count
+    if self.waiting?
+      Party.where(restaurant:self.restaurant, party_status_id: 1).where(["created_at <= ?", self.created_at]).count
+    else
+      0
+    end
   end
   
 end

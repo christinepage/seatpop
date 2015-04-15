@@ -15,8 +15,8 @@ class StaticPagesController < ApplicationController
 
   def check_status
     if params[:search_party_name] && params[:search_party_phone] && params[:search_party_id]
-      @party = Party.find_by(name: params[:search_party_name], phone: params[:search_party_phone], id: params[:search_party_id])
-      @party_placement = Party.where(restaurant:@party.restaurant, party_status_id: 1).where(["created_at <= ?", @party.created_at]).count
+      @party = Party.find_by(name: params[:search_party_name], phone: params[:search_party_phone], id: params[:search_party_id])      
+      @party_placement = (@party ? @party.waiting_list_position : 0)
     else
       
     end

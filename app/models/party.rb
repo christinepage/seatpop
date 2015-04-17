@@ -17,6 +17,18 @@ class Party < ActiveRecord::Base
   
   def init
     self.party_status_id ||= 1
+    self.token ||= random_uniq_token
+  end
+
+  # generates a unique token for a party between 10000 and 99999
+  # don't start the token w/ a 0 to avoid confusion about whether it's needed
+  def random_uniq_token
+    potential_tok = 0
+    loop do 
+      potential_tok = SecureRandom.random_number(90000) + 10000
+      break if not Party.find_by token: potential_tok
+    end
+    potential_tok
   end
 
   def status

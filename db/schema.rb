@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401011506) do
+ActiveRecord::Schema.define(version: 20150417015016) do
 
   create_table "parties", force: :cascade do |t|
     t.string   "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150401011506) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "party_status_id"
+    t.integer  "token"
   end
 
   add_index "parties", ["party_status_id"], name: "index_parties_on_party_status_id"

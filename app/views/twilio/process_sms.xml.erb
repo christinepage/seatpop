@@ -1,3 +1,13 @@
 <Response>
+  
+<% if @waiting_list_pos > 0 %>
   <Sms>Restaurant <%= @party.restaurant.name %>: Party <%= @party_token %> is #<%= @waiting_list_pos %> on the waiting list.</Sms>
+
+<% elsif (@party.status == "seated") %>
+  <Sms>Restaurant <%= @party.restaurant.name %>: Party <%= @party_token %> has already been seated.</Sms>
+
+<% elsif (@party.status == "exited") %>
+  <Sms>Restaurant <%= @party.restaurant.name %>: Party <%= @party_token %> has exited the restaurant.</Sms>
+<% end %>
+
 </Response>

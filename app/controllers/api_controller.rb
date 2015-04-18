@@ -7,15 +7,15 @@ class ApiController < ApplicationController
     if request.post?
       if params && params[:email] && params[:password]    
         p "-----test 1"
-        user = User.find_by(email: params[:session][:email].downcase)
+        user = User.find_by(email: params[:email].downcase)
         p "-----test 2"
-        if user && user.authenticate(params[:session][:password])
+        if user && user.authenticate(params[:password])
           p "-----test 3"
           if user.activated?
             p "-----test 4"
             log_in user
             p "-----test 5"
-            params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+            params[:remember_me] == '1' ? remember(user) : forget(user)
             p "-----test 6"
             render :json => user.to_json, :status => 200
             p "-----test 7"

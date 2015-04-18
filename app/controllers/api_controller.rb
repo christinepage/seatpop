@@ -47,7 +47,9 @@ class ApiController < ApplicationController
     if request.post?
       if params && params[:email] && params[:password]        
         user = User.where(:email => params[:email]).first
-        p "stop 1"              
+        p "stop 1"     
+        p user
+        p "------end---------"
         if user 
           if User.authenticate(params[:email], params[:password]) 
             p "stop 2"              

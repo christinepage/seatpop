@@ -20,7 +20,7 @@ class ApiController < ApplicationController
             render :json => user.to_json, :status => 200
             p "-----test 7"
             
-            p :json
+            p user.to_json
             p "-----end"
             #redirect_back_or user
           else

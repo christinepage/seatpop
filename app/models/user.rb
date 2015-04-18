@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
       puts "******************* #{password} 1"
       
       begin
-        password = AESCrypt.decrypt(password, ENV["API_AUTH_PASSWORD"])      
+        password = password #AESCrypt.decrypt(password, ENV["API_AUTH_PASSWORD"])      
       rescue Exception => e
         password = nil
         puts "error - #{e.message}"

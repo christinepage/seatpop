@@ -12,7 +12,7 @@ class ApiController < ApplicationController
         params[:user][:email] = params[:email]
         
         begin 
-          decrypted_pass = AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
+          decrypted_pass = params[:password] #AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
         rescue Exception => e
           decrypted_pass = nil          
         end
@@ -85,7 +85,7 @@ class ApiController < ApplicationController
               auth_expiry = Time.now + (24*60*60)
             
               begin
-                new_password = AESCrypt.decrypt(params[:new_password], ENV["API_AUTH_PASSWORD"])  
+                new_password = params[:new_password] #AESCrypt.decrypt(params[:new_password], ENV["API_AUTH_PASSWORD"])  
               rescue Exception => e
                 new_password = nil
                 puts "error - #{e.message}"

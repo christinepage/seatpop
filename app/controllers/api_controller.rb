@@ -1,7 +1,7 @@
 class ApiController < ApplicationController  
   http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], :only => [:signup, :signin, :get_token]  
   before_filter :check_for_valid_authtoken, :except => [:signup, :signin, :get_token]
-  skip_before_filter  :verify_authenticity_token
+  #skip_before_filter  :verify_authenticity_token
   
   def signup #replace with UserController::create?
     if request.post?
@@ -45,32 +45,22 @@ class ApiController < ApplicationController
   
   def signin #replace with SessionsController::create?
     if request.post?
-      if params && params[:email] && params[:password]        
-        user = User.where(:email => params[:email]).first
-        p "stop 1"     
-        p user
-        p "------end---------"
-        if user 
-          if User.authenticate(params[:email], params[:password]) 
-            p "stop 2"              
-                    
-            if !user.api_authtoken || (user.api_authtoken && user.authtoken_expiry < Time.now)
-              auth_token = rand_string(20)
-              auth_expiry = Time.now + (24*60*60)
-              p "stop 3"
-          
-              user.update_attributes(:api_authtoken => auth_token, :authtoken_expiry => auth_expiry)   
-              p "stop 4"
-            end 
-            p "stop 5"
-                                   
+      if params && params[:email] && params[:password]    
+        user = User.find_by(email: params[:session][:email].downcase)
+        if user && user.authenticate(params[:session][:password])
+          if user.activated?
+            log_in user
+            params[:session][:remember_me] == '1' ? remember(user) : forget(user)
             render :json => user.to_json, :status => 200
+            #redirect_back_or user
           else
-            e = Error.new(:status => 401, :message => "Wrong Password")
-            render :json => e.to_json, :status => 401
-          end      
+            message  = "Account not activated. "
+            message += "Check your email for the activation link."
+            flash[:warning] = message
+            redirect_to root_url
+          end
         else
-          e = Error.new(:status => 400, :message => "No USER found by this email ID")
+          e = Error.new(:status => 400, :message => "Invalid email/password combination")
           render :json => e.to_json, :status => 400
         end
       else

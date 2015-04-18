@@ -35,6 +35,17 @@ Rails.application.routes.draw do
   get 'twilio/receive_sms' => 'twilio#receive_sms'
 
 
+  post 'api/signup'
+  post 'api/signin'
+  post 'api/reset_password'
+
+  get 'api/get_waitlist'
+  post 'api/add_party'
+  delete 'api/seat_party'  => 'parties#seat_party'
+#  get 'api/get_restaurants'
+    
+  get 'api/get_token'  
+  get 'api/clear_token'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

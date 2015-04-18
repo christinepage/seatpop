@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   
+  get 'cancel_party' => 'parties#cancel_party'
+  get 'drop_party' => 'parties#drop_party'
   get 'parties/:id/table_ready' => 'parties#table_ready'
   get 'parties/:id/notify' => 'parties#notify'
   get 'twilio/send_sms' => 'twilio#send_sms'

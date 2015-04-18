@@ -4,7 +4,11 @@
   <td class="partyContent"><%= party.id %></td>
   <td class="partyContent"><%= party.name %></td>
   <td class="partyContent"><%= party.size %></td>
-  <td class="partyContent"><%= party.phone %></td>
+  <td class="partyContent"><% if (party.phone.length == 10) %>
+                           <%= party.phone.unpack('A3A3A4').join('-') %>
+                           <% else %>
+                           <%= party.phone.unpack('A1A3A3A*').join('-') %>
+                           <% end %></td>
   <td class="timestamp">
     <%= time_ago_in_words(party.created_at) %>
   </td>

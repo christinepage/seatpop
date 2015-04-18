@@ -46,8 +46,8 @@ orenchi = Restaurant.create!(name:  "Orenchi", est_wait_time: 55.minutes,  pictu
 
 restaurants = Restaurant.order(:created_at).take(6)
 restaurants.each { |restaurant| 
-Faker::Number.positive(3,15).times do
-  restaurant.parties.create!(name: Faker::Name.first_name, size: Faker::Number.positive(1,10), phone: Faker::PhoneNumber.phone_number) 
+Faker::Number.positive(3,5).times do
+  restaurant.parties.create!(name: Faker::Name.first_name, size: Faker::Number.positive(1,10), phone: Faker::PhoneNumber.cell_phone) 
 end
 }
   

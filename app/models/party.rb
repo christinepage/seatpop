@@ -1,6 +1,7 @@
 class Party < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :party_status
+  before_validation :format_phone
 
   default_scope -> { order(created_at: :asc) }
   validates :restaurant_id, presence: true
@@ -17,6 +18,10 @@ class Party < ActiveRecord::Base
   
   def init
     self.party_status_id ||= 1
+  end
+  
+  def format_phone
+    self.phone = self.phone.scan(/[0-9]/).join
   end
 
   

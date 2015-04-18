@@ -40,18 +40,12 @@ class PartiesController < ApplicationController
   
   def update
     @party = Party.find(params[:id])
- 
     if @party.update(party_params)
       redirect_to @party
     else
       render 'edit'
     end
   end
-  
-#  def destroy
- #   Party.find(params[:id]).destroy
-  #  redirect_to parties_url
-  #end
   
   def destroy
     party = Party.find(params[:id])
@@ -104,6 +98,9 @@ class PartiesController < ApplicationController
   def drop_down
   end
     
+  def cancel_party
+  end
+  
   private
 
     def party_params

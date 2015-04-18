@@ -24,4 +24,7 @@
 <%= ((@party.restaurant.est_wait_time - (Time.now - @party.created_at)) / 60).round %> mins </h1>
 <%end%>
 
+  <td><%= link_to 'Remove From List', cancel_party_path(@party) %></td>
+  
+  <td><%= link_to 'Drop Down', drop_party_path(@party) %></td>
 <% end %>

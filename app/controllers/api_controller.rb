@@ -19,6 +19,9 @@ class ApiController < ApplicationController
             p "-----test 6"
             render :json => user.to_json, :status => 200
             p "-----test 7"
+            
+            p :json
+            p "-----end"
             #redirect_back_or user
           else
             message  = "Account not activated. "

@@ -1,7 +1,8 @@
 class ApiController < ApplicationController  
   http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], :only => [:signup, :signin, :get_token]  
   before_filter :check_for_valid_authtoken, :except => [:signup, :signin, :get_token]
-
+  skip_before_filter  :verify_authenticity_token
+  
   def signup #replace with UserController::create?
     if request.post?
       if params && params[:full_name] && params[:email] && params[:password]
@@ -46,16 +47,20 @@ class ApiController < ApplicationController
     if request.post?
       if params && params[:email] && params[:password]        
         user = User.where(:email => params[:email]).first
-                      
+        p "stop 1"              
         if user 
           if User.authenticate(params[:email], params[:password]) 
+            p "stop 2"              
                     
             if !user.api_authtoken || (user.api_authtoken && user.authtoken_expiry < Time.now)
               auth_token = rand_string(20)
               auth_expiry = Time.now + (24*60*60)
+              p "stop 3"
           
-              user.update_attributes(:api_authtoken => auth_token, :authtoken_expiry => auth_expiry)    
+              user.update_attributes(:api_authtoken => auth_token, :authtoken_expiry => auth_expiry)   
+              p "stop 4"
             end 
+            p "stop 5"
                                    
             render :json => user.to_json, :status => 200
           else

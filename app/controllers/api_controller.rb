@@ -3,55 +3,22 @@ class ApiController < ApplicationController
   before_filter :check_for_valid_authtoken, :except => [:signup, :signin, :get_token]
   skip_before_filter  :verify_authenticity_token
   
-  def signup #replace with UserController::create?
-    if request.post?
-      if params && params[:full_name] && params[:email] && params[:password]
-        
-        params[:user] = Hash.new    
-        params[:user][:first_name] = params[:full_name].split(" ").first
-        params[:user][:last_name] = params[:full_name].split(" ").last
-        params[:user][:email] = params[:email]
-        
-        begin 
-          decrypted_pass = params[:password] #AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
-        rescue Exception => e
-          decrypted_pass = nil          
-        end
-                
-        params[:user][:password] = decrypted_pass  
-        params[:user][:verification_code] = rand_string(20)
-        
-        user = User.new(user_params)
-
-        if user.save
-          user.send_activation_email
-          render :json => user.to_json, :status => 200
-        else
-          error_str = ""
-
-          user.errors.each{|attr, msg|           
-            error_str += "#{attr} - #{msg},"
-          }
-                    
-          e = Error.new(:status => 400, :message => error_str)
-          render :json => e.to_json, :status => 400
-        end
-      else
-        e = Error.new(:status => 400, :message => "required parameters are missing")
-        render :json => e.to_json, :status => 400
-      end
-    end
-  end
-  
   def signin #replace with SessionsController::create?
     if request.post?
       if params && params[:email] && params[:password]    
+        p "-----test 1"
         user = User.find_by(email: params[:session][:email].downcase)
+        p "-----test 2"
         if user && user.authenticate(params[:session][:password])
+          p "-----test 3"
           if user.activated?
+            p "-----test 4"
             log_in user
+            p "-----test 5"
             params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+            p "-----test 6"
             render :json => user.to_json, :status => 200
+            p "-----test 7"
             #redirect_back_or user
           else
             message  = "Account not activated. "

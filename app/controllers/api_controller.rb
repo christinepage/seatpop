@@ -30,14 +30,12 @@ class ApiController < ApplicationController
           
               user.update_attributes(:api_authtoken => auth_token, :authtoken_expiry => auth_expiry)    
             end 
-            
+            p "to_json = " + user.to_json
             render :json => user.to_json, :status => 200
             
             #render :json => user_hash.to_json, :waitlist => user.restaurants.first.parties.to_json, :restaurants => user.restaurants.to_json, :status => 200
             p "-----test 7"
             
-            p user_hash.to_json
-            p "-----end"
             #redirect_back_or user
           else
             message  = "Account not activated. "

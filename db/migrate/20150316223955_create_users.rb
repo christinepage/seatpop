@@ -4,9 +4,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :email
-
-      t.string :api_authtoken
-      t.datetime :authtoken_expiry
       
       t.timestamps null: false
     end

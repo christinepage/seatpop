@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class ApiController < ApplicationController  
   http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], :only => [:signup,  :get_token]  
   before_filter :check_for_valid_authtoken, :except => [:signup, :signin, :get_token]
@@ -18,10 +20,12 @@ class ApiController < ApplicationController
             params[:remember_me] == '1' ? remember(user) : forget(user)
             p "-----test 6"
             user_hash = user.attributes
-            user_hash[api_authtoken] = rand_string(20)
-            user_hash[authtoken_expiry] = Time.now + (24*60*60)
+            user_hash.append(api_authtoken: rand_string(20))
+            user_hash.append(authtoken_expiry: Time.now + (24*60*60))
             
-            render :json => user_hash.to_json, :waitlist => user.restaurants.first.parties.to_json, :restaurants => user.restaurants.to_json, :status => 200
+            render :json => user_hash.to_json, :status => 200
+            
+            #render :json => user_hash.to_json, :waitlist => user.restaurants.first.parties.to_json, :restaurants => user.restaurants.to_json, :status => 200
             p "-----test 7"
             
             p user_hash.to_json

@@ -14,16 +14,17 @@ class ApiController < ApplicationController
         if user && user.authenticate(params[:password])
           p "-----test 3"
           if user.activated?
-            p "-----test 4"
             log_in user
-            p "-----test 5"
             params[:remember_me] == '1' ? remember(user) : forget(user)
-            p "-----test 6"
-            user_hash = user.attributes
-            user_hash[:api_authtoken] = rand_string(20)
-            user_hash[:authtoken_expiry] = Time.now + (24*60*60)
             
-            render :json => user_hash.to_json, :status => 200
+            if !user.api_authtoken || (user.api_authtoken && user.authtoken_expiry < Time.now)
+              auth_token = rand_string(20)
+              auth_expiry = Time.now + (24*60*60)
+          
+              user.update_attributes(:api_authtoken => auth_token, :authtoken_expiry => auth_expiry)    
+            end 
+            
+            render :json => user.to_json, :status => 200
             
             #render :json => user_hash.to_json, :waitlist => user.restaurants.first.parties.to_json, :restaurants => user.restaurants.to_json, :status => 200
             p "-----test 7"

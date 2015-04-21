@@ -17,10 +17,14 @@ class ApiController < ApplicationController
             p "-----test 5"
             params[:remember_me] == '1' ? remember(user) : forget(user)
             p "-----test 6"
-            render :json => user.to_json, :status => 200
+            user_hash = user.attributes
+            user_hash[api_authtoken] = rand_string(20)
+            user_hash[authtoken_expiry] = Time.now + (24*60*60)
+            
+            render :json => user_hash.to_json, :waitlist => user.restaurants.first.parties.to_json, :restaurants => user.restaurants.to_json, :status => 200
             p "-----test 7"
             
-            p user.to_json
+            p user_hash.to_json
             p "-----end"
             #redirect_back_or user
           else

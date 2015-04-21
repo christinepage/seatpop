@@ -133,6 +133,36 @@ class ApiController < ApplicationController
   end
   
   def add_party #direct to PartiesController::create -> Required Params:: restaurant_id, :party, :name, :size, :phone
+  
+    if request.post?
+      if params[:name] && params[:size]          
+        if @user #&& @user.authtoken_expiry > Time.now
+          @restaurant = @user.restaurants.first
+          p "add_party: @user = " + @user
+          p "add_party: @restaurant = " + @restaurant
+          p "add_party: party_params = " + party_params
+          @party = @restaurant.parties.build(party_params)
+          if @party.save
+            flash[:success] = "Party created with token #{@party.token} !"
+            redirect_to :controller => "twilio",
+              :action => "send_sms",
+              :restaurant_id => @party.restaurant_id,
+              :phone =>@party.phone,
+              :sms_body => "#{@party.name}, Your party token at #{@party.restaurant.name} is: #{@party.token}. Text back #{@party.token} for status."
+          else
+            e = Error.new(:status => 401, :message => "Party could NOT be created!")
+            render :json => e.to_json, :status => 401
+          end
+        else
+          e = Error.new(:status => 401, :message => "Authtoken has expired")
+          render :json => e.to_json, :status => 401
+        end
+      else
+        e = Error.new(:status => 400, :message => "required parameters are missing")
+        render :json => e.to_json, :status => 400
+      end
+    end
+  
   end
 
   def get_waitlist

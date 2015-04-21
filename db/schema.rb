@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417015016) do
+ActiveRecord::Schema.define(version: 20150421084904) do
 
   create_table "parties", force: :cascade do |t|
     t.string   "name"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20150417015016) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.string   "api_authtoken"
+    t.datetime "authtoken_expiry"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -20,8 +20,8 @@ class ApiController < ApplicationController
             params[:remember_me] == '1' ? remember(user) : forget(user)
             p "-----test 6"
             user_hash = user.attributes
-            user_hash.append(api_authtoken: rand_string(20))
-            user_hash.append(authtoken_expiry: Time.now + (24*60*60))
+            user_hash[:api_authtoken] = rand_string(20)
+            user_hash[:authtoken_expiry] = Time.now + (24*60*60)
             
             render :json => user_hash.to_json, :status => 200
             

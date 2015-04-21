@@ -11,13 +11,20 @@ class ApiController < ApplicationController
         p "-----test 1"
         user = User.find_by(email: params[:email].downcase)
         p "-----test 2"
+        p user
+        p user.authenticate(params[:password])
         if user && user.authenticate(params[:password])
           p "-----test 3"
           if user.activated?
             log_in user
             params[:remember_me] == '1' ? remember(user) : forget(user)
-            
+            p "-----test 4"
+            p user.api_authtoken
+            p user.authtoken_expiry
+            p "-----test 5"
             if !user.api_authtoken || (user.api_authtoken && user.authtoken_expiry < Time.now)
+            p "-----test 6"
+            
               auth_token = rand_string(20)
               auth_expiry = Time.now + (24*60*60)
           

@@ -43,7 +43,7 @@ class TwilioController < ApplicationController
       render 'process_bad_party_id.xml.erb', :content_type => 'text/xml' and return
     end
 
-    @party_token = body_tokens[0]
+    @party_token = body_tokens[0].to_i
     @party = Party.find_by(token: @party_token)
     logger.debug "Assuming party_token: #{@party_token}"
 
@@ -60,21 +60,25 @@ class TwilioController < ApplicationController
 
     if (body_tokens.size == 2) && (body_tokens[1] == "cancel")
       logger.debug "got an SMS request to cancel party"
+      @party.status = 3   # exited
       render 'process_cancel_sms.xml.erb', :content_type => 'text/xml' and return
     end
+
+    ## wait on implementing this
     if (body_tokens.size == 2) && (body_tokens[1] == "drop")
       logger.debug "got an SMS request to drop down party"
       render 'process_drop_sms.xml.erb', :content_type => 'text/xml' and return
     end
     if (body_tokens.size == 3) && (body_tokens[1] == "size")
       logger.debug "got an SMS request to change party size"
+      @old_size = @party.size
+      @party.size = body_tokens[2].to_i
       render 'process_change_size_sms.xml.erb', :content_type => 'text/xml' and return
     end
 
     # an invalid command
     logger.debug "got an SMS request that was invalid"
     render 'process_bad_party_id.xml.erb', :content_type => 'text/xml' and return
-
   end
 
 end

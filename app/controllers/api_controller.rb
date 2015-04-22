@@ -137,8 +137,11 @@ class ApiController < ApplicationController
   p "add_party request:" + request
   p "add_party params:" + params
     if request.post?
-      if params[:name] && params[:size]          
+      p "request.post"
+      if params[:name] && params[:size]    
+        p "params[:name] && params[:size]"
         if @user #&& @user.authtoken_expiry > Time.now
+          p "addparty:@user"
           @restaurant = @user.restaurants.first
           p "add_party: @user = " + @user
           p "add_party: @restaurant = " + @restaurant

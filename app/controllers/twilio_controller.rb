@@ -59,7 +59,8 @@ class TwilioController < ApplicationController
       render 'process_sms.xml.erb', :content_type => 'text/xml' and return
     end
 
-    twilio_format_phone = "+1" + @party.phone.gsub!(/[^0-9]/, '')
+    twilio_format_phone = "+1" + @party.phone.gsub(/[^0-9]/, '')
+    
     # for editing functions, cancel, drop, size, must be from the party phone number in the db
     if (body_tokens.size > 1) && (["cancel", "drop", "size"].include?(body_tokens[1])) && (sender_tel != twilio_format_phone)
       logger.debug "got an SMS request for to edit a party from unauthorized number (#{sender_tel} but need #{twilio_format_phone})"

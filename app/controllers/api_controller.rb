@@ -7,21 +7,27 @@ class ApiController < ApplicationController
   
   def signin #replace with SessionsController::create?
     if request.post?
+      p "PART 1"
       if params && params[:email] && params[:password] 
+        p "PART 2"
         user = User.find_by(email: params[:email].downcase)
         if user && user.authenticate(params[:password])
+          p "PART 3"
           if user.activated?
+            p "PART 4"
             log_in user
             params[:remember_me] == '1' ? remember(user) : forget(user)
             if !user.api_authtoken || (user.api_authtoken && user.authtoken_expiry < Time.now)
+              p "PART 5"
               auth_token = rand_string(20)
               auth_expiry = Time.now + (24*60*60)
               user.update_attributes(:api_authtoken => auth_token, :authtoken_expiry => auth_expiry)   
               user_hash = user.attributes
               user_hash[:restaurant] = user.restaurants.first.name 
             end 
-            render :json => user_hash.to_json, :status => 200
+            p "PART 6"
             p user_hash.to_json
+            render :json => user_hash.to_json, :status => 200
           else
             message  = "Account not activated. "
             message += "Check your email for the activation link."

@@ -60,12 +60,15 @@ class TwilioController < ApplicationController
 
     if (body_tokens.size == 2) && (body_tokens[1] == "cancel")
       logger.debug "got an SMS request to cancel party"
+      render 'process_cancel_sms.xml.erb', :content_type => 'text/xml' and return
     end
     if (body_tokens.size == 2) && (body_tokens[1] == "drop")
       logger.debug "got an SMS request to drop down party"
+      render 'process_drop_sms.xml.erb', :content_type => 'text/xml' and return
     end
     if (body_tokens.size == 3) && (body_tokens[1] == "size")
       logger.debug "got an SMS request to change party size"
+      render 'process_change_size_sms.xml.erb', :content_type => 'text/xml' and return
     end
 
     # an invalid command

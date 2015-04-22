@@ -21,6 +21,7 @@ class ApiController < ApplicationController
               user_hash[:restaurant] = user.restaurants.first.name 
             end 
             render :json => user_hash.to_json, :status => 200
+            p user_hash.to_json
           else
             message  = "Account not activated. "
             message += "Check your email for the activation link."

@@ -136,7 +136,7 @@ class ApiController < ApplicationController
               :restaurant_id => @party.restaurant_id,
               :phone =>@party.phone,
               :sms_body => "#{@party.name}, Your party token at #{@party.restaurant.name} is: #{@party.token}. Text back #{@party.token} for status."
-              get_waitlist
+              #get_waitlist
           else
             e = Error.new(:status => 401, :message => "Party could NOT be created!")
             render :json => e.to_json, :status => 401

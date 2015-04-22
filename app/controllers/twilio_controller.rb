@@ -34,10 +34,11 @@ class TwilioController < ApplicationController
   #   [token] size [number] (change party size)
 
   def receive_sms 
+    sender_tel = params[:From] || ""
     body = params[:Body] || ""
     body_tokens = body.split(" ")
 
-    logger.debug "Received a message from tel: #{params[:From]} with body: #{params[:Body]}"
+    logger.debug "Received a message from tel: #{sender_tel} with body: #{body}"
 
     if body_tokens.size == 0
       render 'process_bad_party_id.xml.erb', :content_type => 'text/xml' and return
@@ -56,6 +57,14 @@ class TwilioController < ApplicationController
       logger.debug "got an SMS request for party status"
       @waiting_list_pos = @party.waiting_list_position
       render 'process_sms.xml.erb', :content_type => 'text/xml' and return
+    end
+
+    twilio_format_phone = "+1" + @party.phone.gsub!(/[^0-9]/, '')
+    # for editing functions, cancel, drop, size, must be from the party phone number in the db
+    if (body_tokens.size > 1) && ["cancel", "drop", "size"].include(body_tokens[1])
+        && sender_tel != twilio_format_phone
+      logger.debug "got an SMS request for to edit a party from unauthorized number (#{sender_tel} but need #{twilio_format_phone})"
+      render 'process_unauthorized_sms.xml.erb', :content_type => 'text/xml' and return
     end
 
     if (body_tokens.size == 2) && (body_tokens[1] == "cancel")

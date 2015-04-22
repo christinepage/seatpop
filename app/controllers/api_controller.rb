@@ -142,7 +142,7 @@ class ApiController < ApplicationController
         if @user #&& @user.authtoken_expiry > Time.now
           p "addparty:@user"
           @restaurant = @user.restaurants.first
-          @party = @restaurant.parties.build(params)
+          @party = @restaurant.parties.build(name: params[:name],size: params[:size], phone: params[:phone])
           if @party.save
             flash[:success] = "Party created with token #{@party.token} !"
             redirect_to :controller => "twilio",

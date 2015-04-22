@@ -134,8 +134,7 @@ class ApiController < ApplicationController
   
   def add_party #direct to PartiesController::create -> Required Params:: restaurant_id, :party, :name, :size, :phone
   p "add_party entered!"
-  p "add_party request:" + request
-  p "add_party params:" + params
+  p "add_party params: #{params}" 
     if request.post?
       p "request.post"
       if params[:name] && params[:size]    
@@ -143,9 +142,6 @@ class ApiController < ApplicationController
         if @user #&& @user.authtoken_expiry > Time.now
           p "addparty:@user"
           @restaurant = @user.restaurants.first
-          p "add_party: @user = " + @user
-          p "add_party: @restaurant = " + @restaurant
-          p "add_party: party_params = " + party_params
           @party = @restaurant.parties.build(party_params)
           if @party.save
             flash[:success] = "Party created with token #{@party.token} !"

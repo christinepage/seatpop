@@ -133,7 +133,9 @@ class ApiController < ApplicationController
   end
   
   def add_party #direct to PartiesController::create -> Required Params:: restaurant_id, :party, :name, :size, :phone
-  
+  p "add_party entered!"
+  p "add_party request:" + request
+  p "add_party params:" + params
     if request.post?
       if params[:name] && params[:size]          
         if @user #&& @user.authtoken_expiry > Time.now

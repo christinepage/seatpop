@@ -60,7 +60,7 @@ class TwilioController < ApplicationController
 
     if (body_tokens.size == 2) && (body_tokens[1] == "cancel")
       logger.debug "got an SMS request to cancel party"
-      @party.status = 3   # exited
+      @party.update_attributes(party_status: PartyStatus.find_by(name: "exited"))
       render 'process_cancel_sms.xml.erb', :content_type => 'text/xml' and return
     end
 
@@ -69,10 +69,11 @@ class TwilioController < ApplicationController
       logger.debug "got an SMS request to drop down party"
       render 'process_drop_sms.xml.erb', :content_type => 'text/xml' and return
     end
+
     if (body_tokens.size == 3) && (body_tokens[1] == "size")
       logger.debug "got an SMS request to change party size"
       @old_size = @party.size
-      @party.size = body_tokens[2].to_i
+      @party.update_attributes(size: body_tokens[2].to_i)   
       render 'process_change_size_sms.xml.erb', :content_type => 'text/xml' and return
     end
 

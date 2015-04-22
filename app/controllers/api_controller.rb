@@ -27,7 +27,7 @@ class ApiController < ApplicationController
             end 
             p "PART 6"
             p user_hash.to_json
-            render :json => user_hash.to_json, :status => 200
+            render :json => user.to_json, :status => 200
           else
             message  = "Account not activated. "
             message += "Check your email for the activation link."

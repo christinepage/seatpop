@@ -8,35 +8,17 @@ class ApiController < ApplicationController
   def signin #replace with SessionsController::create?
     if request.post?
       if params && params[:email] && params[:password]    
-        p "-----test 1"
         user = User.find_by(email: params[:email].downcase)
-        p "-----test 2"
-        p user
-        p user.authenticate(params[:password])
         if user && user.authenticate(params[:password])
-          p "-----test 3"
           if user.activated?
             log_in user
             params[:remember_me] == '1' ? remember(user) : forget(user)
-            p "-----test 4"
-            p user.api_authtoken
-            p user.authtoken_expiry
-            p "-----test 5"
             if !user.api_authtoken || (user.api_authtoken && user.authtoken_expiry < Time.now)
-            p "-----test 6"
-            
               auth_token = rand_string(20)
               auth_expiry = Time.now + (24*60*60)
-          
               user.update_attributes(:api_authtoken => auth_token, :authtoken_expiry => auth_expiry)    
             end 
-            p "to_json = " + user.to_json
             render :json => user.to_json, :status => 200
-            
-            #render :json => user_hash.to_json, :waitlist => user.restaurants.first.parties.to_json, :restaurants => user.restaurants.to_json, :status => 200
-            p "-----test 7"
-            
-            #redirect_back_or user
           else
             message  = "Account not activated. "
             message += "Check your email for the activation link."
@@ -133,14 +115,9 @@ class ApiController < ApplicationController
   end
   
   def add_party #direct to PartiesController::create -> Required Params:: restaurant_id, :party, :name, :size, :phone
-  p "add_party entered!"
-  p "add_party params: #{params}" 
     if request.post?
-      p "request.post"
       if params[:name] && params[:size]    
-        p "params[:name] && params[:size]"
         if @user #&& @user.authtoken_expiry > Time.now
-          p "addparty:@user"
           @restaurant = @user.restaurants.first
           @party = @restaurant.parties.build(name: params[:name],size: params[:size], phone: params[:phone])
           if @party.save
@@ -150,6 +127,7 @@ class ApiController < ApplicationController
               :restaurant_id => @party.restaurant_id,
               :phone =>@party.phone,
               :sms_body => "#{@party.name}, Your party token at #{@party.restaurant.name} is: #{@party.token}. Text back #{@party.token} for status."
+              get_waitlist
           else
             e = Error.new(:status => 401, :message => "Party could NOT be created!")
             render :json => e.to_json, :status => 401

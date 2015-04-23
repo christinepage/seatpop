@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   get 'api/get_waitlist'
   post 'api/add_party'
-  get 'get_restaurant'
+  get 'api/get_restaurant'
   delete 'api/seat_party'  => 'parties#seat_party'
 #  get 'api/get_restaurants'
     

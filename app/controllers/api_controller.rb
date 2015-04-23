@@ -150,6 +150,7 @@ class ApiController < ApplicationController
   def get_waitlist
     if @user && @user.authtoken_expiry > Time.now
       waitlist = @user.restaurants.first.waitlist
+      p "@@@@@@@@@@@@@@@@@@@ GET waitlist"
       render :json => waitlist.to_json, :status => 200
     else
       e = Error.new(:status => 401, :message => "Authtoken has expired. Please get a new token and try again!")

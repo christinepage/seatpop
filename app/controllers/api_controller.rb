@@ -159,7 +159,7 @@ class ApiController < ApplicationController
   
   def get_restaurant
     if @user && @user.authtoken_expiry > Time.now
-      restaurant = @user.restaurants.first.name
+      restaurant = @user.restaurants.first
       p "GET RESTAURANTS"
       p restaurant.to_json
       render :json => restaurant.to_json, :status => 200

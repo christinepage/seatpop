@@ -1,5 +1,8 @@
+require 'action_view'
+include ActionView::Helpers::DateHelper
+
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :estwait]
   before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :admin_user,     only: :destroy
@@ -65,6 +68,22 @@ class RestaurantsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def estwait
+    if @restaurant.est_wait_time 
+        ret_data = {waittimestr: "#{distance_of_time_in_words(@restaurant.est_wait_time)}"}
+    else
+        ret_data = {waittimestr: "No wait!"}
+    end
+
+    ret_data[:waitlistlen] = @restaurant.waitlist.length.to_s + " waiting"
+
+    logger.debug "estwait ret_data: #{ret_data.to_json}"
+    respond_to do |format|
+      format.html { render html: ret_data[:waittimestr] }
+      format.json { render json: ret_data.to_json }
     end
   end
 

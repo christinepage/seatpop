@@ -17,21 +17,27 @@ class Party < ActiveRecord::Base
   after_initialize :init
   
   def init
-    self.party_status_id ||= 1
-    self.token ||= random_uniq_token
+    if self.new_record?
+      self.party_status_id ||= 1
+      self.token ||= random_uniq_token
+    end
   end
   
   def format_phone
     self.phone = self.phone.scan(/[0-9]/).join
   end
 
-  # generates a unique token for a party between 10000 and 99999
-  # don't start the token w/ a 0 to avoid confusion about whether it's needed
+  # generates a unique token for a party restaurant id + random num between 0 and 999
   def random_uniq_token
     potential_tok = 0
+    tries = 0
     loop do 
-      potential_tok = SecureRandom.random_number(90000) + 10000
-      break if not Party.find_by token: potential_tok
+      tries += 1
+      potential_tok = self.restaurant_id * 1000 + SecureRandom.random_number(1000)
+      break if Party.where(token: potential_tok, party_status_id: 1).count == 0
+      if tries > 100
+        raise RuntimeError, "Cannot find unique token for party", caller
+      end
     end
     potential_tok
   end

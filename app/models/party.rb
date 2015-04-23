@@ -35,7 +35,7 @@ class Party < ActiveRecord::Base
       tries += 1
       potential_tok = self.restaurant_id * 1000 + SecureRandom.random_number(1000)
       break if Party.where(token: potential_tok, party_status_id: 1).count == 0
-      if tries > 10000
+      if tries > 100
         raise RuntimeError, "Cannot find unique token for party", caller
       end
     end

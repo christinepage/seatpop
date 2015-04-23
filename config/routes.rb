@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get 'twilio/send_sms' => 'twilio#send_sms'
   get 'twilio/receive_sms' => 'twilio#receive_sms'
 
+  get  'restaurants/:id/estwait' => 'restaurants#estwait'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,17 +1,39 @@
 <div class="box">
+
+  <span class="restaurant-image"><%= link_to image_tag(restaurant.picture.small.url, width: "200", class: "img-thumbnail"), restaurant if restaurant.picture? %></span>
+  <span class="restaurant-name"><%= restaurant.name %></span>  
+  <span class="restaurant-waittime" id="restaurant-waittime<%= restaurant.id %>"></span>
+  <span class="restaurant-waitlist-len" id="restaurant-waitlist-len<%= restaurant.id %>"></span>
+
   <% if logged_in? && restaurant.users.include?(current_user) %>
-  
-  <span class="restaurant-image"><%= link_to image_tag(restaurant.picture.small.url, width: "200", class: "img-thumbnail"), restaurant if restaurant.picture? %></span>
-  <span class="restaurant-name"><%= restaurant.name %></span>
-  <span class="restaurant-waittime"><%= distance_of_time_in_words(restaurant.est_wait_time) if restaurant.est_wait_time %></span>
-  <span class="restaurant-waittime"><%= "No wait!" if !restaurant.est_wait_time %></span>
-  <span><%= restaurant.description %></span>
-  
-  <% else %>
-  
-  <span class="restaurant-image"><%= link_to image_tag(restaurant.picture.small.url, width: "200", class: "img-thumbnail"), restaurant if restaurant.picture? %></span>
-  <span class="restaurant-name"><%= restaurant.name %></span>
-  <span class="restaurant-waittime"><%= distance_of_time_in_words(restaurant.est_wait_time) if restaurant.est_wait_time %></span>
-  <span class="restaurant-waittime"><%= "No wait!" if !restaurant.est_wait_time %></span>
+    <span><%= restaurant.description %></span>
   <% end %>
 </div>
+
+<script>
+$(document).ready(function(){
+  var $estwait = $('#restaurant-waittime<%= restaurant.id %>');
+  var $waitlistlen = $('#restaurant-waitlist-len<%= restaurant.id %>');
+
+  setInterval(function(){
+    $.ajax({
+      type: "GET",
+      url: "/restaurants/<%= restaurant.id %>/estwait.json",
+      dataType: "json",
+      success: function(response) {
+        console.log("success: response: " + response.waittimestr);
+        console.log("success: response: " + response.waitlistlen);
+        if ($estwait.length > 0) {
+          $estwait.first().text(response.waittimestr);          
+        }
+        if ($waitlistlen.length > 0) {
+          $waitlistlen.first().text(response.waitlistlen);          
+        } 
+      }
+    });
+
+  }, 2000);
+});
+</script>
+
+

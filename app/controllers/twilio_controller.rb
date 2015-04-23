@@ -88,7 +88,7 @@ class TwilioController < ApplicationController
 
     # an invalid command
     logger.debug "got an SMS request that was invalid"
-    render 'process_bad_party_id.xml.erb', :content_type => 'text/xml' and return
+    render 'process_bad_sms_command.xml.erb', :content_type => 'text/xml' and return
   end
 
 end

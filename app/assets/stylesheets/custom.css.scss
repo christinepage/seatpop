@@ -293,8 +293,18 @@ aside {
   position: absolute;
   margin-top:200px;
   width:200px;
+  text-align:left;
+  left:5px;
+  
+}
+
+.restaurant-waitlist-len{
+  color: red;
+  position: absolute;
+  margin-top:200px;
+  width:200px;
   text-align:right;
-  right:10px;
+  right:5px;
   
 }
 

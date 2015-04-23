@@ -157,6 +157,16 @@ class ApiController < ApplicationController
     end
   end
   
+  def get_restaurant
+    if @user && @user.authtoken_expiry > Time.now
+      restaurant = @user.restaurants.first.name
+      render :json => restaurant.to_json, :status => 200
+    else
+      e = Error.new(:status => 401, :message => "Authtoken has expired. Please get a new token and try again!")
+      render :json => e.to_json, :status => 401
+    end
+  end
+  
 
   private 
   
